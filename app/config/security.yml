@@ -14,6 +14,7 @@ security:
             security: false
 
         main:
+        
             anonymous: ~
             # activate different ways to authenticate
 

@@ -1,3 +1,8 @@
-oc_shop_homepage:
-    path:     /
-    defaults: { _controller: OCShopBundle:Default:index }
+
+##Page 1 -> start.html.twig
+oc_shop_start_booking:
+    path:     /booking
+    defaults: { _controller: OCShopBundle:Booking:start }
+    methods: [GET]
+
+

@@ -1,0 +1,56 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>{% block title %}Vente de billets - Site Officiel{% endblock %}</title>
+
+  {% block stylesheets %}
+    {# On charge le CSS de bootstrap depuis le site directement #}
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+     <link href="{{ asset('css/main.css') }}" type="text/css" rel="stylesheet" /> 
+  {% endblock %}
+</head>
+
+<body id="image_back">
+  <div id="header" class="col-md-12 col-xs-12">RESERVATION EN LIGNE</div>
+<div class="container" >
+  
+<div id="content">  
+
+   
+    <p class ="intro"> {% block intro %}{% endblock %}</p>   
+    <p>
+  {% block p %}
+  {% endblock %}
+  </p>
+  
+
+   {% block body %}
+   {% endblock %}
+
+   <a>
+   {% block a %}
+   {% endblock %}
+   </a>
+<tr>
+   <td colspan="3" align="center" height="61">
+<center>
+         <img class="img-responsive" width="200px"
+            src="{{ asset('images/louvre4.png') }}"
+              srcset="{{ asset('images/louvre4.png') }}" 320w,
+             "{{ asset('images/louvre4.png') }}" 640w">
+                 </td></tr></br> 
+                 <i>© Musée du Louvre - {{ 'now'|date('Y') }}. Tous droits réservés</i>
+                 </center>
+                 
+</div>
+  </div>
+   </div>   
+   
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+
+
+{% extends "shop/layout.html.twig" %}
+
+{% block title %}
+  Accueil - {{ parent() }}
+{% endblock %}
+
+{% block intro %}
+
+<div class="first_title"><center>LE MUSÉE DU LOUVRE VOUS ACCUEILLE</center></div>
+
+{% endblock %}
+{% block p %}<div class="intro"><u>Bienvenue !</u> </br>
+Réservation d'un horaire d’accès recommandé pour vous offrir les meilleures conditions de visite.
+Vous pouvez dès à présent réserver un ou plusieurs billet(s) grâce à notre billetterie. Choisissez le jour, le type et le nombre de billets que vous souhaitez.
+
+Vous receverez vos billets à l'adresse e-mail renseignée dans le formulaire</div>
+<div class="start" style="">
+<div class="title_start">
+Date de visite  </div>
+* Les champs date de visite et type de billet sont obligatoires. 
+<div class="title_start">Type de billets</div>
+<select id="day-select">
+  <option value="full-day">Journée complète</option>
+  <option value="half-day">Demi-Journée</option>
+</select>
+<div class="title_start">Nombre de billets</div>
+
+  <select id="ticketSelect" >
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+    <option value="8">8</option>
+    <option value="9">9</option>
+    <option value="10">10</option>
+  </select></br>
+  <button onclick="submitData();" class="btn btn-primary" type="button">Valider</button>
+  </p></div>
+
+
+
+  <div class="horaires">
+<div class="title_start">
+Informations pratiques </br> </br>
+</div>
+<b>Horaires :</b></br>
+Ouvert tous les jours de 9h à 18h sauf le mardi et le dimanche.</br> </br>
+
+<b>Fermetures :</b></br>
+Les 1er mai, 1er novembre et 25 décembre.</br> </br>
+
+<b>Type de billets :</b></br>
+Il est impossible de commander de billet « Journée » une fois 14h00 passées.</br> </br>
+
+
+<b>Tarifs:</b></br>
+Normal (à partir de 12 ans): 16 €</br>
+Enfant (4 à 11 ans): 8 €</br>
+Sénior (à partir de 60 ans) : 12 €</br>
+Réduit (1): 10 €</br>
+Gratuit pour les enfants de moins de 4 ans
+</div>
+
+
+{% endblock %}
