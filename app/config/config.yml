@@ -60,8 +60,16 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: '%mailer_transport%'
-    host: '%mailer_host%'
-    username: '%mailer_user%'
-    password: '%mailer_password%'
-    spool: { type: memory }
+   transport:  gmail
+   host:       smtp.gmail.com
+   username:   louvre.museum.test@gmail.com
+   password:   close123to456be789
+   encryption: ssl
+   port:       465
+   auth_mode:  login
+   spool:     { type: memory }
+   stream_options:
+      ssl:
+        allow_self_signed: true
+        verify_peer: false
+

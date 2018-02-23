@@ -39,3 +39,14 @@ monolog:
 
 #swiftmailer:
 #    delivery_addresses: ['me@example.com']
+
+swiftmailer:
+   delivery_address: 'juliette.lofaro@gmail.com'
+   transport:  gmail
+   host:       smtp.gmail.com
+   username:   louvre.museum.test@gmail.com
+   password:   close123to456be789
+   encryption: ssl
+   port:       465
+   auth_mode:  login
+   spool:     { type: memory }
