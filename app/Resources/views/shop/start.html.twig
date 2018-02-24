@@ -20,6 +20,20 @@ Vous receverez vos billets à l'adresse e-mail renseignée dans le formulaire</d
 <div class="title_start">
 Date de visite  </div>
 * Les champs date de visite et type de billet sont obligatoires. 
+
+{{  form_start(form) }}    
+        {{ form_label(form.datedevisite) }}
+{{ form_end(form) }}
+
+
+
+
+
+
+
+
+
+
 <div class="title_start">Type de billets</div>
 <select id="day-select">
   <option value="full-day">Journée complète</option>
@@ -41,6 +55,16 @@ Date de visite  </div>
   </select></br>
   <button onclick="submitData();" class="btn btn-primary" type="button">Valider</button>
   </p></div>
+
+
+
+
+
+
+
+
+
+
 
 
 
