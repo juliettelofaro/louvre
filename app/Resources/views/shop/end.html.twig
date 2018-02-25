@@ -1,0 +1,25 @@
+{% extends "shop/layout.html.twig" %}
+
+{% block title %}
+{{ parent() }}
+{% endblock %}
+
+
+
+{% block body %}
+
+<div id="loading_bar" margin: 294px 895px; position: absolute; z-index: 500;>
+
+  <center><h3>  
+ <div class="success"> La réservation a bien été effectuée !     </div></br>   
+L'équipe du Musée du Louvre vous remercie pour votre commande.</br>
+Vos billets viennent de vous être envoyés sur votre boîte mail.</h3>
+<h2 style="font-weight: bold">A très bientôt ! </h2> </br> </br>
+
+
+
+<img class="img-circle img-responsive" width="350px"
+                     src="{{ asset('images/louvre2.jpg') }}">
+	</div>	</center>
+
+{% endblock %} 

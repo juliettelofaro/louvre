@@ -88,7 +88,7 @@ text-align: center;
     padding: 20px; 
     width: 200px;
     height: 150px;
-	width:500px;height:290px;border:1px solid #F0F8FF;
+	width:500px;height:390px;border:1px solid #F0F8FF;
 	text-align: center;
     margin-left: 30%;
 }
@@ -98,10 +98,10 @@ text-align: center;
 {
 	font-family: "Cedarville Cursive";
 	border-radius: 50px 15px;
-    background: #800000;    
-    padding: 20px; 
-	 margin-left: 30%;
+    background: #800000; 
 
+    padding: 20px; 
+	margin-left: 30%;
 	width:500px;height:390px;border:1px solid #800000;
 	text-align: center;
    

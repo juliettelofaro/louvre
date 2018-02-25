@@ -1,0 +1,58 @@
+{% extends "shop/layout.html.twig" %}
+
+{% block title %}
+{{ parent() }}
+{% endblock %}
+
+{% block body %}  
+
+<div class="first_title"><center>Récapitulatif de votre commande</center></div>
+<h3>Votre réservation pour le {* app.session.get('date') *}</h3>
+
+<hr></hr>
+<div>
+    <table class="table table-bordered" style="background-color: white;">
+        <thead>
+            <tr>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Type de ticket</th>
+                <th>Nombre de ticket</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{* app.session.get('Booking').getFirstName() *}</td>
+                <td>{* app.session.get('Booking').getLastName() *}</td>
+                <td>{* app.session.get('day') *}</td>
+                <td>{* app.session.get('Booking').getTickets().count *}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<h3><center>
+Montant total : <strong>{* app.session.get('TotalPrice')  *} €</strong></br> 
+</h3>
+</center>
+
+<center>
+Veuillez renseigner vos coordonées bancaires dans le champ ci-dessous pour régler votre commande.</br> </br>
+</center>
+
+
+
+{ form_start(form, {attr: {id: form.vars.id}}) }
+    <div class="form-group">
+        <label for="card-element">
+            Carte de crédit
+        </label>
+        <div id="card-element" class="form-control"></div>
+        <div id="card-errors" class="help-block" role="alert"></div>
+    </div>
+    { form_widget(form.token) }
+    { form_end(form) }
+        
+
+{% endblock %}

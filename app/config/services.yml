@@ -14,8 +14,8 @@ services:
         # if you need to do this, you can override this setting on individual services
         public: false
 
-        oc_shop.stripeclient:
-        class: OC\ShopBundle\Services\StripeClient
+        #oc_shop.stripeclient:
+        #class: OC\ShopBundle\Services\StripeClient
 
-        oc_shop.envoimail:
-        class: OC\ShopBundle\Services\EnvoiMail
+        #oc_shop.envoimail:
+        #class: OC\ShopBundle\Services\EnvoiMail

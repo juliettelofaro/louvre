@@ -17,20 +17,15 @@ Vous pouvez dès à présent réserver un ou plusieurs billet(s) grâce à notre
 
 Vous receverez vos billets à l'adresse e-mail renseignée dans le formulaire</div>
 <div class="start" style="">
+
 <div class="title_start">
+
 Date de visite  </div>
 * Les champs date de visite et type de billet sont obligatoires. 
-
-{{  form_start(form) }}    
-        {{ form_label(form.datedevisite) }}
-{{ form_end(form) }}
-
-
-
-
-
-
-
+<center>
+ {{ form(form) }}
+</center>
+</br>
 
 
 
@@ -39,8 +34,10 @@ Date de visite  </div>
   <option value="full-day">Journée complète</option>
   <option value="half-day">Demi-Journée</option>
 </select>
-<div class="title_start">Nombre de billets</div>
+</br> </br>
 
+
+<div class="title_start">Nombre de billets</div>
   <select id="ticketSelect" >
     <option value="1">1</option>
     <option value="2">2</option>
@@ -52,7 +49,7 @@ Date de visite  </div>
     <option value="8">8</option>
     <option value="9">9</option>
     <option value="10">10</option>
-  </select></br>
+  </select></br> </br>
   <button onclick="submitData();" class="btn btn-primary" type="button">Valider</button>
   </p></div>
 

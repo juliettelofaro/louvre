@@ -3,13 +3,40 @@
 namespace OC\ShopBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
+use Symfony\Component\Form\Extension\Core\Type\HiddenType;
+use Symfony\Component\Validator\Constraints\NotBlank;
+use OC\ShopBundle\Entity\Ticket;
+use OC\ShopBundle\Entity\Booking;
+use OC\ShopBundle\formType\InitialisationBookingType;
+use OC\ShopBundle\formType\AddBookingTicketsType;
+use OC\ShopBundle\formType\TicketType;
 
 class BookingController extends Controller
 {
-    public function startAction()
+    public function startAction(Request $request)
     {
-        return $this->render('shop/start.html.twig');
+        $booking = new Booking();
+
+        $form = $this->createForm(InitialisationBookingType::class, $booking);
+        $form->handleRequest($request);
+         /*if ($form->isSubmitted() && $form->isValid()) {
+            $booking = $form->getData();          
+            $this->get('session')->set('Booking', $booking);
+            return $this->redirectToRoute('oc_shop_ticket');
+             }*/
+        return $this->render('shop/start.html.twig', array(
+        'form' => $form->createView()
+        ));
+       
     }
+
+    public function newAction(Request $request)
+    {
+         return $this->render('shop/new.html.twig');
+    }
+
 
 
     public function sendBillet()
@@ -42,9 +69,16 @@ class BookingController extends Controller
                 }
             }
         }
-        return $this->render('OCShopBundle:Form:paymentForm.html.twig', [
+        return $this->render('shop/paymentForm.html.twig', [
             'form' => $form->createView(),
             'stripe_public_key' => $this->getParameter('stripe_public_key'),
         ]);
     }
+
+    public function endAction(Request $request)
+    {
+       
+        return $this->render('shop/end.html.twig');
+    }
+
 }
