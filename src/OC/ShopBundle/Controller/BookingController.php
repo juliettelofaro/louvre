@@ -15,10 +15,9 @@ use OC\ShopBundle\formType\TicketType;
 
 class BookingController extends Controller
 {
-    public function startAction(Request $request)
+    public function homeAction(Request $request)
     {
         $booking = new Booking();
-
         $form = $this->createForm(InitialisationBookingType::class, $booking);
         $form->handleRequest($request);
          /*if ($form->isSubmitted() && $form->isValid()) {
@@ -28,13 +27,17 @@ class BookingController extends Controller
              }*/
         return $this->render('shop/start.html.twig', array(
         'form' => $form->createView()
-        ));
-       
+        ));       
     }
 
-    public function newAction(Request $request)
+    public function selectTicketsAction(Request $request)
     {
-         return $this->render('shop/new.html.twig');
+        $ticket = new Ticket();
+         $form = $this->createForm(TicketType::class, $ticket);
+        $form->handleRequest($request);
+        return $this->render('shop/new.html.twig', array(
+        'form' => $form->createView()
+        ));
     }
 
 
@@ -45,40 +48,65 @@ class BookingController extends Controller
     }
 
 
-     public function paymentAction(Request $request)
+
+
+     public function recapAction(Request $request)
     {
-        dump($this->get('session')->get('TotalPrice'));
-        $form = $this->get('form.factory')
-        ->createNamedBuilder('payment-form')
-        ->add('token', HiddenType::class, [
-            'constraints' => [new NotBlank()],
-        ])
-        ->add('submit', SubmitType::class)
-        ->getForm();
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            if ($form->isValid()) {
-                try {
-                    $this->get('oc_shop.stripeclient')->createCharge([
-                        'email' => 'juliette.lofaro@gmail.com',
-                        'amount' =>  $this->get('session')->get('TotalPrice')
-                    ], $form->get('token')->getData()); 
-                    return $this->redirectToRoute('oc_shop_submit');   
-                } catch (\Stripe\Error\Base $e) {
-                    $this->addFlash('warning', sprintf('Unable to take payment, %s', $e instanceof \Stripe\Error\Card ? lcfirst($e->getMessage()) : 'please try again.'));
-                }
-            }
-        }
-        return $this->render('shop/paymentForm.html.twig', [
-            'form' => $form->createView(),
-            'stripe_public_key' => $this->getParameter('stripe_public_key'),
-        ]);
+        \Stripe\Stripe::setApiKey("sk_test_E7H0GHx7r68yjVjBdhxxFF7f");
+
+        $charge = \Stripe\Charge::create(
+
+    array(
+            "amount" => 2000,
+            "currency" => "eur",
+            "source" => "tok_mastercard", // obtained with Stripe.js
+            "description" => "Paiement de test"
+        ));
+
+        return $this->render('shop/paymentForm.html.twig');   
     }
 
-    public function endAction(Request $request)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+
+    public function sendBillet($email, $booking, $total_price)
     {
-       
+        $message = \Swift_Message::newInstance()->setSubject('Billet de réservation')
+        ->setFrom([
+            'juliette.lofaro@gmail.com' => 'Vos billets - Confirmation de votre commande '
+        ])
+        ->setTo($email)
+        ->setCharset('utf-8')
+        ->setContentType('text/html')
+        ->setBody($this->renderView('shop/booking_billet.html.twig', [
+            'booking' => $booking,
+            'total_price' => $total_price
+        ]));        
+        return $this->get('mailer')->send($message);
+    }
+
+*/
+
+    public function confirmationAction(Request $request)
+    {       
         return $this->render('shop/end.html.twig');
     }
-
 }

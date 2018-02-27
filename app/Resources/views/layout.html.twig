@@ -6,9 +6,21 @@
   {% block title %}Vente de billets - Site Officiel{% endblock %}
   </title>
 </head>
+
 <body>
 	<p>
 	{% block p %}
 {% endblock %}
 </p>
+
+	{% block body %}
+
+
+<script src="https://js.stripe.com/v3/"></script>
+
+
+{% endblock %}
+{% block javascript %}
+{% endblock %}
 </body>
+</html>

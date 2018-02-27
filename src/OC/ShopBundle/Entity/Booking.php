@@ -250,5 +250,16 @@ class Booking
     {
         return $this->code;
     }
+
+
+        /**
+     * Get tickets
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTickets()
+    {
+        return $this->tickets;
+    }
 }
 

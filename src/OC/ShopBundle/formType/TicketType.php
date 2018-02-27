@@ -17,7 +17,7 @@ class TicketType extends AbstractType
         
         $builder->add('prenom', TextType::class, array('label' => 'Prénom : '));
         $builder->add('nom', TextType::class, array('label' => 'Nom : '));
-        $builder->add('datenaissance',DateType::Class, array(
+        $builder->add('datedenaissance',DateType::Class, array(
             'widget' => 'choice',
             'years' => range(1918, 2017),
             'months' => range(date('m'), 12),

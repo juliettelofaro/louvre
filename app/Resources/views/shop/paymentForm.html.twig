@@ -5,54 +5,85 @@
 {% endblock %}
 
 {% block body %}  
+<script src="https://js.stripe.com/v3/"></script>
 
-<div class="first_title"><center>Récapitulatif de votre commande</center></div>
-<h3>Votre réservation pour le {* app.session.get('date') *}</h3>
-
-<hr></hr>
-<div>
-    <table class="table table-bordered" style="background-color: white;">
-        <thead>
-            <tr>
-                <th>Prénom</th>
-                <th>Nom</th>
-                <th>Type de ticket</th>
-                <th>Nombre de ticket</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>{* app.session.get('Booking').getFirstName() *}</td>
-                <td>{* app.session.get('Booking').getLastName() *}</td>
-                <td>{* app.session.get('day') *}</td>
-                <td>{* app.session.get('Booking').getTickets().count *}</td>
-            </tr>
-        </tbody>
-    </table>
-</div>
-
-
-<h3><center>
-Montant total : <strong>{* app.session.get('TotalPrice')  *} €</strong></br> 
-</h3>
-</center>
-
-<center>
-Veuillez renseigner vos coordonées bancaires dans le champ ci-dessous pour régler votre commande.</br> </br>
-</center>
-
-
-
-{ form_start(form, {attr: {id: form.vars.id}}) }
-    <div class="form-group">
-        <label for="card-element">
-            Carte de crédit
-        </label>
-        <div id="card-element" class="form-control"></div>
-        <div id="card-errors" class="help-block" role="alert"></div>
+<form action="shop/end.html.twig" id="payment-form">
+  <div class="form-row">
+    <label for="card-element">
+      Credit or debit card
+    </label>
+    <div id="card-element">
+      <!-- A Stripe Element will be inserted here. -->
     </div>
-    { form_widget(form.token) }
-    { form_end(form) }
-        
 
+    <!-- Used to display Element errors. -->
+    <div id="card-errors" role="alert"></div>
+  </div>
+
+  <button>Submit Payment</button>
+</form>
+
+
+
+
+{% endblock %}
+{% block javascript %}
+<script>
+var stripe = Stripe('pk_test_eOi9gtv5fB0VE3Cw8yUqPyRm');
+var elements = stripe.elements();
+
+// Custom styling can be passed to options when creating an Element.
+var style = {
+  base: {
+    // Add your base input styles here. For example:
+    fontSize: '16px',
+    color: "#32325d",
+  }
+};
+
+// Create an instance of the card Element.
+var card = elements.create('card', {style: style});
+
+// Add an instance of the card Element into the `card-element` <div>.
+card.mount('#card-element');
+
+card.addEventListener('change', function(event) {
+  var displayError = document.getElementById('card-errors');
+  if (event.error) {
+    displayError.textContent = event.error.message;
+  } else {
+    displayError.textContent = '';
+  }
+});
+
+// Create a token or display an error when the form is submitted.
+var form = document.getElementById('payment-form');
+form.addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  stripe.createToken(card).then(function(result) {
+    if (result.error) {
+      // Inform the customer that there was an error.
+      var errorElement = document.getElementById('card-errors');
+      errorElement.textContent = result.error.message;
+    } else {
+      // Send the token to your server.
+      stripeTokenHandler(result.token);
+    }
+  });
+});
+
+function stripeTokenHandler(token) {
+  // Insert the token ID into the form so it gets submitted to the server
+  var form = document.getElementById('payment-form');
+  var hiddenInput = document.createElement('input');
+  hiddenInput.setAttribute('type', 'hidden');
+  hiddenInput.setAttribute('name', 'stripeToken');
+  hiddenInput.setAttribute('value', token.id);
+  form.appendChild(hiddenInput);
+
+  // Submit the form
+  form.submit();
+}
+</script>
 {% endblock %}

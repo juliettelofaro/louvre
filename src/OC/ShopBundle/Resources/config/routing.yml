@@ -2,23 +2,23 @@
 ##Page 1 -> start.html.twig
 oc_shop_start_booking:
     path:     /booking
-    defaults: { _controller: OCShopBundle:Booking:start }
+    defaults: { _controller: OCShopBundle:Booking:home }
     methods: [GET]
 
 ##Page 2 -> new.html.twig
 oc_shop_new:
     path:     /tickets
-    defaults: { _controller: OCShopBundle:Booking:new }
+    defaults: { _controller: OCShopBundle:Booking:selectTickets }
     methods: [GET]
 
 ##Page 3 -> paymentForm.html.twig
 oc_shop_payment:
     path:     /tickets/payment
-    defaults: { _controller: OCShopBundle:Booking:payment }
+    defaults: { _controller: OCShopBundle:Booking:recap }
     methods: [GET]
 
 ##Page 4 -> end.html.twig
 oc_shop_end:
     path:     /tickets/end
-    defaults: { _controller: OCShopBundle:Booking:end }
+    defaults: { _controller: OCShopBundle:Booking:confirmation }
     methods: [POST,GET]

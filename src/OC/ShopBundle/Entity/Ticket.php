@@ -12,6 +12,13 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Ticket
 {
+    
+ /**
+ * @ORM\ManyToOne(targetEntity="Booking", inversedBy="tickets", cascade={"persist"})
+ * @ORM\JoinColumn(name="booking_id", referencedColumnName="id")
+ */
+    private $booking;
+
     /**
      * @var int
      *
