@@ -11,5 +11,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 class StripeClient
 {
-	
+
+    
 }

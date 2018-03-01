@@ -5,9 +5,43 @@
 {% endblock %}
 
 {% block body %}  
+<div class="first_title"><center>Récapitulatif de votre commande</center></div>
+<h3>Votre réservation pour le {* app.session.get('date') *}</h3>
+
+<hr></hr>
+<div>
+    <table class="table table-bordered" style="background-color: white;">
+        <thead>
+            <tr>
+                <th>Prénom</th>
+                <th>Nom</th>
+                <th>Type de ticket</th>
+                <th>Nombre de ticket</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{* app.session.get('Booking').getFirstName() *}</td>
+                <td>{* app.session.get('Booking').getLastName() *}</td>
+                <td>{* app.session.get('day') *}</td>
+                <td>{* app.session.get('Booking').getTickets().count *}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+
+<h3><center>
+Montant total : <strong>{* app.session.get('TotalPrice')  *} €</strong></br> 
+</h3>
+
+Veuillez renseigner vos coordonées bancaires dans le champ ci-dessous pour régler votre commande.</br> </br>
+</center>
+
+
 <script src="https://js.stripe.com/v3/"></script>
 
-<form action="shop/end.html.twig" id="payment-form">
+<form method="get" id="payment-form">
   <div class="form-row">
     <label for="card-element">
       Credit or debit card

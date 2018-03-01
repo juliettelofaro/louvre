@@ -32,81 +32,57 @@ class BookingController extends Controller
 
     public function selectTicketsAction(Request $request)
     {
+
         $ticket = new Ticket();
          $form = $this->createForm(TicketType::class, $ticket);
         $form->handleRequest($request);
         return $this->render('shop/new.html.twig', array(
         'form' => $form->createView()
         ));
+         if ($form->isSubmitted() && $form->isValid()) {
+            $booking = $form->getData();          
+            $this->get('session')->set('Booking', $booking);
+            $totalPrice = 0;
+            foreach ($booking->getTickets() as $ticket) {
+                $totalPrice += $ticket->getAgeType();
+            }
+           
+            $this->get('session')->set('TotalPrice', $totalPrice);
+            $this->get('session')
+            ->getFlashBag()
+            ->add('notice', 'La réservation a bien été effectuée!');
+            return $this->redirectToRoute('oc_shop_payment');
+        }
     }
-
-
-
-    public function sendBillet()
-    {
-        $sendmail = $this->container->get('oc_shop.envoimail');
-    }
-
-
 
 
      public function recapAction(Request $request)
     {
+
         \Stripe\Stripe::setApiKey("sk_test_E7H0GHx7r68yjVjBdhxxFF7f");
-
         $charge = \Stripe\Charge::create(
-
     array(
             "amount" => 2000,
             "currency" => "eur",
             "source" => "tok_mastercard", // obtained with Stripe.js
             "description" => "Paiement de test"
         ));
-
         return $this->render('shop/paymentForm.html.twig');   
     }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-    public function sendBillet($email, $booking, $total_price)
-    {
-        $message = \Swift_Message::newInstance()->setSubject('Billet de réservation')
-        ->setFrom([
-            'juliette.lofaro@gmail.com' => 'Vos billets - Confirmation de votre commande '
-        ])
-        ->setTo($email)
-        ->setCharset('utf-8')
-        ->setContentType('text/html')
-        ->setBody($this->renderView('shop/booking_billet.html.twig', [
-            'booking' => $booking,
-            'total_price' => $total_price
-        ]));        
-        return $this->get('mailer')->send($message);
-    }
-
-*/
-
     public function confirmationAction(Request $request)
     {       
-        return $this->render('shop/end.html.twig');
+        /*$session = $request->getSession();
+        $booking = $session->get('Booking');
+        $booking->setDate(new \DateTime($session->get('date')));
+
+        $booking->setType($session->get('day'));
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($booking);
+        $em->flush();
+        $this->container->get('oc_shop.envoimail')->($booking->getEmail(), $booking, $session->get('TotalPrice'));
+        return $this->render('shop/end.html.twig');*/
     }
 }
