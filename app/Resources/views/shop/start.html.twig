@@ -11,49 +11,24 @@
 <div class="first_title"><center>LE MUSÉE DU LOUVRE VOUS ACCUEILLE</center></div>
 
 {% endblock %}
-{% block p %}<div class="intro"><u>Bienvenue !</u> </br>
+{% block body %}<div class="intro"><u>Bienvenue !</u> </br>
 Réservation d'un horaire d’accès recommandé pour vous offrir les meilleures conditions de visite.
 Vous pouvez dès à présent réserver un ou plusieurs billet(s) grâce à notre billetterie. Choisissez le jour, le type et le nombre de billets que vous souhaitez.
 
-Vous receverez vos billets à l'adresse e-mail renseignée dans le formulaire</div>
+Vous receverez vos billets à l'adresse e-mail renseignée dans le formulaire ci-dessous.</div>
+
 <div class="start" style="">
-
 <div class="title_start">
-
-Date de visite  </div>
+Informations relatives à votre ticket  </div>
 * Les champs date de visite et type de billet sont obligatoires. 
 <center>
- {{ form(form) }}
+ {{ form_start(form) }}
+ {{ form_row(form) }}
+ <input type="submit" value="Valider" >
+ {{ form_end(form) }}
 </center>
 </br>
-
-
-
-<div class="title_start">Type de billets</div>
-<select id="day-select">
-  <option value="full-day">Journée complète</option>
-  <option value="half-day">Demi-Journée</option>
-</select>
-</br> </br>
-
-
-<div class="title_start">Nombre de billets</div>
-  <select id="ticketSelect" >
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-    <option value="8">8</option>
-    <option value="9">9</option>
-    <option value="10">10</option>
-  </select></br> </br>
-  <button onclick="submitData();" class="btn btn-primary" type="button">Valider</button>
-  </p></div>
-
-
+</div>
 
 
 
@@ -86,7 +61,6 @@ Sénior (à partir de 60 ans) : 12 €</br>
 Réduit (1): 10 €</br>
 Gratuit pour les enfants de moins de 4 ans
 </div>
-
 
 
 

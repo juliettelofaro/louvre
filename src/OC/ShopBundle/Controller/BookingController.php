@@ -20,11 +20,12 @@ class BookingController extends Controller
         $booking = new Booking();
         $form = $this->createForm(InitialisationBookingType::class, $booking);
         $form->handleRequest($request);
-         /*if ($form->isSubmitted() && $form->isValid()) {
-            $booking = $form->getData();          
+         if ($form->isSubmitted() && $form->isValid()) {
+            $booking = $form->getData(); 
+            //ici faire le rray collection des tickets vides
             $this->get('session')->set('Booking', $booking);
             return $this->redirectToRoute('oc_shop_ticket');
-             }*/
+        }
         return $this->render('shop/start.html.twig', array(
         'form' => $form->createView()
         ));       

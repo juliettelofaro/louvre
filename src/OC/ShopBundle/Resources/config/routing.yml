@@ -3,19 +3,19 @@
 oc_shop_start_booking:
     path:     /booking
     defaults: { _controller: OCShopBundle:Booking:home }
-    methods: [GET]
+    methods: [POST,GET]
 
 ##Page 2 -> new.html.twig
 oc_shop_new:
     path:     /tickets
     defaults: { _controller: OCShopBundle:Booking:selectTickets }
-    methods: [GET]
+    methods: [POST,GET]
 
 ##Page 3 -> paymentForm.html.twig
 oc_shop_payment:
     path:     /tickets/payment
     defaults: { _controller: OCShopBundle:Booking:recap }
-    methods: [GET]
+    methods: [POST,GET]
 
 ##Page 4 -> end.html.twig
 oc_shop_end:

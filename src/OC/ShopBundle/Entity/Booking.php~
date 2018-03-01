@@ -5,7 +5,6 @@ namespace OC\ShopBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use OC\ShopBundle\Validator as MyAssert;
-use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Booking
@@ -91,7 +90,6 @@ class Booking
         $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         $str = str_split(str_shuffle($str), 4)[0];
         $this->code = rand(1000,9999).$str;
-        $this->tickets = new ArrayCollection();
     }
 
 
@@ -259,28 +257,5 @@ class Booking
     {
         return $this->tickets;
     }
-
-    /**
-     * Add ticket
-     *
-     * @param \OC\ShopBundle\Entity\Ticket $ticket
-     *
-     * @return Booking
-     */
-    public function addTicket(\OC\ShopBundle\Entity\Ticket $ticket)
-    {
-        $this->tickets[] = $ticket;
-
-        return $this;
-    }
-
-    /**
-     * Remove ticket
-     *
-     * @param \OC\ShopBundle\Entity\Ticket $ticket
-     */
-    public function removeTicket(\OC\ShopBundle\Entity\Ticket $ticket)
-    {
-        $this->tickets->removeElement($ticket);
-    }
 }
+

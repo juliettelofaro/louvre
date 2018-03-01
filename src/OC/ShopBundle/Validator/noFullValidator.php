@@ -9,7 +9,7 @@ namespace ShopBundle\Validator
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
-class noHolidayValidator extends ConstraintValidator
+class noFullValidator extends ConstraintValidator
 {
      public function quotaAction(Request $request){
         define("MAX_BOOKING_DATE", 1000);

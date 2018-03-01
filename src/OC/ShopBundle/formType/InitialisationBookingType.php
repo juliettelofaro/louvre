@@ -12,6 +12,9 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\DateIntervalType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\NumberType;
+
 
 
  
@@ -20,18 +23,17 @@ class InitialisationBookingType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-       # $builder->add('prenom', TextType::class, array('label' => 'Prénom : '));
-       # $builder->add('nom', TextType::class, array('label' => 'Nom : '));
-       # $builder->add('email', EmailType::class, array('label' => 'Adresse mail : ')); 
         $builder->add('datedevisite', DateType::class, array(
-            'widget' => 'choice',
-            'years' => range(1918, 2017),
-            'months' => range(1, 12),
-            'days' => range(1, 31),
-            'label' => 'Date de naissance :',
-        ));
-       # $builder->add('duree', TextType::class, array('label' => 'Durée : '));
-       # $builder->add('save', SubmitType::class, array('label' => 'Valider'));
+            'widget' => 'single_text',
+            'label' => 'Date de la visite : '
+        ))
+        ->add('duree', ChoiceType::class, array(
+            'label' => 'Durée : ',
+            'choices'  => array(
+                'Journée' => true,
+                'Demi-journée' => false)))
+                ->add('nbTickets', NumberType::class, array ('label' => 'Nombre de tickets :'))
+                ->add('email', EmailType::class, array ('label' => 'Adresse e-mail :'));
     }
     
     public function configureOptions(OptionsResolver $resolver)

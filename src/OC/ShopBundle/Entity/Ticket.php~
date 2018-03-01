@@ -249,28 +249,5 @@ class Ticket
     }
 
 
-
-    /**
-     * Set booking
-     *
-     * @param \OC\ShopBundle\Entity\Booking $booking
-     *
-     * @return Ticket
-     */
-    public function setBooking(\OC\ShopBundle\Entity\Booking $booking = null)
-    {
-        $this->booking = $booking;
-
-        return $this;
-    }
-
-    /**
-     * Get booking
-     *
-     * @return \OC\ShopBundle\Entity\Booking
-     */
-    public function getBooking()
-    {
-        return $this->booking;
-    }
 }
+

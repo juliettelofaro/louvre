@@ -1,18 +1,26 @@
 <?php
 
-namespace ShopBundle\Validator
+namespace OC\ShopBundle\Validator;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
+//journée demi-journée
 
-class canBeFullDay extends ConstraintValidator
+class canBeFullDayValidator extends ConstraintValidator
 {
-    public function validate($value, Constraint $constraint)
+  
+    
+    public function validate($booking, Constraint $constraint)
     {
-        $dateValidator = new \DateTime("NOW");
-        if ( ($value === '1') && ($dateValidator > date("Y-m-d 14:00:00")) ) {
-            $this->context->addViolation($constraint->message);
+        $today = new \DateTime();
+        if ($booking->getDatedevisite()->format('Ymd') == $today->format('Ymd')&&
+           $today->format('H') >= 14 &&
+            $booking->getDuree() === true
+            ) {
+            $this->context->buildViolation($constraint->message)
+            ->atPath('duree')
+            ->addViolation();
         }
     }
 }
