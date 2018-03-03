@@ -3,7 +3,7 @@
 //validateur pour les jour fériés
 
 
-namespace ShopBundle\Validator
+namespace OC\ShopBundle\Validator;
 
 use Symfony\Component\Validator\Constraint;
 

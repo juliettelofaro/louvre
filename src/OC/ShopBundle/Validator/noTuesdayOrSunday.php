@@ -3,7 +3,7 @@
 //validateur pour mardis et dimanches
 
 
-namespace ShopBundle\Validator
+namespace OC\ShopBundle\Validator;
 
 use Symfony\Component\Validator\Constraint;
 

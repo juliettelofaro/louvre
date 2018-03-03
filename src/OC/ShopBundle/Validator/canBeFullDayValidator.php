@@ -14,7 +14,7 @@ class canBeFullDayValidator extends ConstraintValidator
     public function validate($booking, Constraint $constraint)
     {
         $today = new \DateTime();
-        if ($booking->getDatedevisite()->format('Ymd') == $today->format('Ymd')&&
+        if ($booking->getDatedevisite()->format('Ymd') == $today->format('Ymd') &&
            $today->format('H') >= 14 &&
             $booking->getDuree() === true
             ) {

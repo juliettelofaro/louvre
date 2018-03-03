@@ -1,6 +1,7 @@
 <?php
-namespace ShopBundle\Validator
 
+
+namespace OC\ShopBundle\Validator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 
@@ -8,15 +9,20 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class noTuesdayOrSundayValidator extends ConstraintValidator
 {
-    // Renvoie false si le billet est acheter pour un mardi ou un dimanche
-    public function validate($dateTime, Constraint $constraint)
-    {
 
-        $timestamp = $dateTime->getTimestamp();
-        $date = strftime('%A %d %B', $timestamp);
-        $tuesday = explode(" ", $date);
-        if ($tuesday[0] === "Tuesday" || $tuesday[0] === "Sunday") {
+    public function day($booking, Constraint $constraint)
+    {
+       /*
+        $daytime = new \DateTime();
+        $day = $datetime->format('N');
+        if ($booking->getDatedevisite()->format('N') == $day=== 2 || $day === 7)
+        {
             $this->context->addViolation($constraint->message);
-        }
+
+        }*/
+    }
+
+    public function getClosedDays() {
+        return $this->closedDays;
     }
 }

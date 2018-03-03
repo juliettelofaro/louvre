@@ -13,7 +13,7 @@ use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\DateIntervalType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\NumberType;
+
 
 
 
@@ -32,7 +32,7 @@ class InitialisationBookingType extends AbstractType
             'choices'  => array(
                 'Journée' => true,
                 'Demi-journée' => false)))
-                ->add('nbTickets', NumberType::class, array ('label' => 'Nombre de tickets :'))
+                ->add('nbTickets')
                 ->add('email', EmailType::class, array ('label' => 'Adresse e-mail :'));
     }
     

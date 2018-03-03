@@ -3,7 +3,7 @@
 //validateur pour les 1000 bookings
 
 
-namespace ShopBundle\Validator
+namespace OC\ShopBundle\Validator;
 
 use Symfony\Component\Validator\Constraint;
 
