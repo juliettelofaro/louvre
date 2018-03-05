@@ -15,6 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * @ORM\Entity(repositoryClass="OC\ShopBundle\Repository\BookingRepository")
  * @MyAssert\CanBeFullDay()
  * @MyAssert\NoFull()
+ * @MyAssert\NoHoliday()
  */
 class Booking
 {

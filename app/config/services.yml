@@ -22,3 +22,6 @@ services:
 
     OC\ShopBundle\Validator\NoFullValidator:
         arguments:  ["@doctrine.orm.entity_manager"]
+
+    OC\ShopBundle\Validator\NoHolidayValidator:
+        arguments:  ["@doctrine.orm.entity_manager"]

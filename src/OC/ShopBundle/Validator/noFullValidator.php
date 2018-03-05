@@ -9,7 +9,7 @@ use Symfony\Component\Validator\ConstraintValidator;
 use Doctrine\ORM\EntityManager;
 use OC\ShopBundle\Entity\Booking;
 
-class noFullValidator extends ConstraintValidator
+class NoFullValidator extends ConstraintValidator
 {
 
 
@@ -27,7 +27,7 @@ class noFullValidator extends ConstraintValidator
     {
         $ticketsRepo = $this->em->getRepository(Ticket::class);
         $nbTodayTickets = $ticketsRepo->getNbTicketsPerDay();
-        dump($booking, $nbTodayTickets);
+
         // Si nb de tickets vendus supérieur à 1000
         if (($nbTodayTickets + $booking->getNbTickets()) > Booking::MAX_TICKETS_PER_DAY) {
             $this->context->buildViolation($constraint->message)

@@ -6,18 +6,22 @@ namespace OC\ShopBundle\Validator;
 
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\EntityManager;
 use OC\ShopBundle\Entity\Ticket;
 use OC\ShopBundle\Entity\Booking;
 
-class noHolidayValidator extends ConstraintValidator
+class NoHolidayValidator extends ConstraintValidator
 {
     protected $em;
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManagerInterface   $em)
     {
         $this->em = $em;
     }
-
+    /**
+     * @param Booking $booking
+     * @param Constraint $constraint
+     */
     public function validate($booking, Constraint $constraint)
     {
         $this->dateIsValid($booking->getDatedevisite(), $constraint);

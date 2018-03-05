@@ -12,7 +12,7 @@ use Symfony\Component\Validator\Constraint;
  * @Annotation
  */
 
-class noFull extends Constraint
+class NoFull extends Constraint
 {
 	public $message = 'Vous ne pouvez pas commander de billet car ce jour est complet.';
 
