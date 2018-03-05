@@ -68,6 +68,13 @@ class Ticket
     private $reduit;
 
     /**
+     * @var string
+     * @ORM\Column(name="pays", type="string")
+     */
+    private $pays;
+
+
+    /**
      * @var int
      *
      * @ORM\Column(name="booking_id", type="integer")
@@ -196,6 +203,40 @@ class Ticket
         return $this->reduit;
     }
 
+
+    /**
+     * Set pays
+     *
+     * @param string $pays
+     *
+     * @return Ticket
+     */
+    public function setPays($pays)
+    {
+        $this->pays = $pays;
+        return $this;
+    }
+    /**
+     * Get pays
+     *
+     * @return string
+     */
+    public function getPays()
+    {
+        return $this->pays;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     /**
      * Set bookingId
      *
@@ -225,6 +266,7 @@ class Ticket
       {
       $date = $this->getDatedenaissance();
       $now = new \DateTime();
+
       $interval = $now->diff($date);
       
 

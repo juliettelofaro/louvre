@@ -21,24 +21,40 @@ class BookingController extends Controller
         $form = $this->createForm(InitialisationBookingType::class, $booking);
         $form->handleRequest($request);
          if ($form->isSubmitted() && $form->isValid()) {
-            $booking = $form->getData(); 
+            $booking = $form->getData();
             //ici faire le rray collection des tickets vides
             $this->get('session')->set('Booking', $booking);
-            return $this->redirectToRoute('oc_shop_ticket');
+            return $this->redirectToRoute('oc_shop_new');
         }
         return $this->render('shop/start.html.twig', array(
         'form' => $form->createView()
         ));       
     }
 
+    /**
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function selectTicketsAction(Request $request)
     {
+        $session = $request->getSession();
+        $data = $session->get('Booking');
+        $amount = $data->getNbTickets();
+        $booking = new Booking();
+        for ($i = 1; $i <= $amount; $i ++)
+        {
 
-        $ticket = new Ticket();
-         $form = $this->createForm(TicketType::class, $ticket);
+            $ticket = new Ticket();
+            $booking->getTickets()->add($ticket);
+            //$booking->addTicket()->add($ticket);
+
+
+        $form = $this->createForm(TicketType::class, $ticket);
         $form->handleRequest($request);
+
+        }
         return $this->render('shop/new.html.twig', array(
-        'form' => $form->createView()
+            'form' => $form->createView()
         ));
          if ($form->isSubmitted() && $form->isValid()) {
             $booking = $form->getData();          
@@ -52,7 +68,7 @@ class BookingController extends Controller
             $this->get('session')
             ->getFlashBag()
             ->add('notice', 'La réservation a bien été effectuée!');
-            return $this->redirectToRoute('oc_shop_payment');
+             return $this->redirectToRoute('oc_shop_payment');
         }
     }
 

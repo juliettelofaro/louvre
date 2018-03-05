@@ -1,6 +1,6 @@
 <?php
 
-namespace OC\ShopBundle\Repository;
+namespace OC\ShopBundle\Repository\TicketRepository;
 
 /**
  * TicketRepository
@@ -10,4 +10,19 @@ namespace OC\ShopBundle\Repository;
  */
 class TicketRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getNbTicketsPerDay()
+    {
+        $startDay = \DateTime::createFromFormat( "Y-m-d H:i:s", date("Y-m-d 00:00:00") );
+        $endDay = \DateTime::createFromFormat( "Y-m-d H:i:s", date("Y-m-d 23:59:59") );
+        $qb = $this
+            ->createQueryBuilder('t')
+            ->select('COUNT(t)')
+            ->leftJoin('t.order', 'o')
+            ->where('o.datedevisite >= :start_day')
+            ->andWhere('o.datedevisite <= :end_day')
+            ->setParameter('start_day', $startDay)
+            ->setParameter('end_day', $endDay)
+        ;
+        return $qb->getQuery()->getSingleScalarResult();
+    }
 }

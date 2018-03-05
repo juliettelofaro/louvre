@@ -14,7 +14,14 @@ use Symfony\Component\Validator\Constraint;
 
 class noHoliday extends Constraint
 {
-	 public $message = 'Vous ne pouvez pas commander de billet un jour férié.'; 
+    public $messageClosedMuseum = "Impossible de réserver ce jour, le musée étant fermé.";
+    public $messageClosedOrder  = "Impossible de réserver ce jour, les résevations en ligne étant fermées pour les jours fériés et les dimanches";
+
+    public function getTargets()
+    {
+        return self::CLASS_CONSTRAINT;
+    }
+
 }
 
 

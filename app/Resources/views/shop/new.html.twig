@@ -28,12 +28,15 @@ Les prix sont déterminés en fonction de l'âge fourni.</br>
 
 
 {% block body %}
-<div class="tiquets">VOS INFORMATIONS</div></br> 
+
 
 <div class="tiquets">VOS TIQUETS</div></br> 
 <div class="form_b">
 
- {{ form(form) }}
 
+ {{ form_start(form) }}
+ {{ form_row(form) }}
+ <input type="submit" value="Valider" >
+ {{ form_end(form) }}
 </div>
 {% endblock %}

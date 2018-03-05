@@ -11,12 +11,15 @@ use Symfony\Component\Validator\ConstraintValidator;
 
 class noFullValidator extends ConstraintValidator
 {
-     public function quotaAction(Booking $booking){
-        define("MAX_BOOKING_DATE", 1000);
+    public function ticketsNumberValidation(Booking $booking, $constraint)
+    {
+        $tickets = $booking->getTickets();
+        $ticketsRepo = $this->em->getRepository('OC\ShopBundle\Repository\TicketRepository');
+        $nbTodayTickets = $ticketsRepo->getNbTicketsPerDay();
 
-         $datedevisite = $booking->getDatedevisite();
-         $totalReservations = $this->commandGateway->countReservationAt($datedeisit);
-         if ($command->getNumberOfVisitors() + $totalReservations > 1000) {
-             throw new TooManyReservationsException(1000 - $totalReservations);
+        // Si nb de tickets vendus supérieur à 1000
+        if (($nbTodayTickets + $order->getNbTickets()) > 1000) {
+            $this->context->buildViolation($constraint->message);
+        }
     }
 }

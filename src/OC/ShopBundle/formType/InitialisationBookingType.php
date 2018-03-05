@@ -32,7 +32,7 @@ class InitialisationBookingType extends AbstractType
             'choices'  => array(
                 'Journée' => true,
                 'Demi-journée' => false)))
-                ->add('nbTickets')
+                ->add('nbTickets',TextType::class, array('label' => 'Nombre de ticket (10 max.) : '))
                 ->add('email', EmailType::class, array ('label' => 'Adresse e-mail :'));
     }
     

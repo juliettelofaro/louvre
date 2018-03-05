@@ -7,6 +7,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 use OC\ShopBundle\Validator as MyAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 
+
 /**
  * Booking
  *
@@ -67,15 +68,23 @@ class Booking
 
     /**
      * @ORM\OneToMany(targetEntity="Ticket", mappedBy="booking",cascade={"persist"})
+
+     */
+    protected $tickets;
+
+
+
+    /**
+
+    * @Assert\NotBlank()
      * @ASSERT\Range(
      *     min = 1,
      *     max = 10
      * )
+
      */
-    protected $tickets;
-    
     private $nbTickets;
-    
+
     public function getNbTickets()
     {
         return $this->nbTickets;
