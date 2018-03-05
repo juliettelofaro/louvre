@@ -13,11 +13,14 @@ use Doctrine\Common\Collections\ArrayCollection;
  *
  * @ORM\Table(name="booking")
  * @ORM\Entity(repositoryClass="OC\ShopBundle\Repository\BookingRepository")
- * @MyAssert\canBeFullDay()
- * @MyAssert\noFull()
+ * @MyAssert\CanBeFullDay()
+ * @MyAssert\NoFull()
  */
 class Booking
 {
+
+    const MAX_TICKETS_PER_DAY = 1000;
+    const LIMIT_HALF_DAY_HOUR = 14;
     /**
      * @var int
      *

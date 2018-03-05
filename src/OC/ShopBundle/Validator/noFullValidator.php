@@ -1,25 +1,38 @@
-
-
 <?php
-
-//validateur pour les 1000bookings
 
 namespace OC\ShopBundle\Validator;
 
+use Doctrine\ORM\EntityManagerInterface;
+use OC\ShopBundle\Entity\Ticket;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
+use Doctrine\ORM\EntityManager;
+use OC\ShopBundle\Entity\Booking;
 
 class noFullValidator extends ConstraintValidator
 {
-    public function ticketsNumberValidation(Booking $booking, $constraint)
-    {
-        $tickets = $booking->getTickets();
-        $ticketsRepo = $this->em->getRepository('OC\ShopBundle\Repository\TicketRepository');
-        $nbTodayTickets = $ticketsRepo->getNbTicketsPerDay();
 
+
+    protected $em;
+    public function __construct(EntityManagerInterface   $em)
+    {
+        $this->em = $em;
+    }
+
+    /**
+     * @param Booking $booking
+     * @param Constraint $constraint
+     */
+    public function validate($booking, Constraint $constraint)
+    {
+        $ticketsRepo = $this->em->getRepository(Ticket::class);
+        $nbTodayTickets = $ticketsRepo->getNbTicketsPerDay();
+        dump($booking, $nbTodayTickets);
         // Si nb de tickets vendus supérieur à 1000
-        if (($nbTodayTickets + $order->getNbTickets()) > 1000) {
-            $this->context->buildViolation($constraint->message);
+        if (($nbTodayTickets + $booking->getNbTickets()) > Booking::MAX_TICKETS_PER_DAY) {
+            $this->context->buildViolation($constraint->message)
+                ->atPath('nbTickets')
+                ->addViolation();
         }
     }
 }

@@ -19,3 +19,6 @@ services:
 
         #oc_shop.envoimail:
         #class: OC\ShopBundle\Services\EnvoiMail
+
+    OC\ShopBundle\Validator\NoFullValidator:
+        arguments:  ["@doctrine.orm.entity_manager"]

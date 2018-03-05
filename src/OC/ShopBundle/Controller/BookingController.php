@@ -22,7 +22,6 @@ class BookingController extends Controller
         $form->handleRequest($request);
          if ($form->isSubmitted() && $form->isValid()) {
             $booking = $form->getData();
-            //ici faire le rray collection des tickets vides
             $this->get('session')->set('Booking', $booking);
             return $this->redirectToRoute('oc_shop_new');
         }
