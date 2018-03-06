@@ -12,6 +12,7 @@ use OC\ShopBundle\Entity\Booking;
 use OC\ShopBundle\formType\InitialisationBookingType;
 use OC\ShopBundle\formType\AddBookingTicketsType;
 use OC\ShopBundle\formType\TicketType;
+use OC\ShopBundle\Services\OutilPayment;
 
 class BookingController extends Controller
 {
@@ -22,6 +23,7 @@ class BookingController extends Controller
         $form->handleRequest($request);
          if ($form->isSubmitted() && $form->isValid()) {
             $booking = $form->getData();
+             //ici faire le rray collection des tickets vides
             $this->get('session')->set('Booking', $booking);
             return $this->redirectToRoute('oc_shop_new');
         }
@@ -42,33 +44,32 @@ class BookingController extends Controller
         $booking = new Booking();
         for ($i = 1; $i <= $amount; $i ++)
         {
-
             $ticket = new Ticket();
             $booking->getTickets()->add($ticket);
             //$booking->addTicket()->add($ticket);
 
-
+        }
         $form = $this->createForm(TicketType::class, $ticket);
         $form->handleRequest($request);
-
-        }
-        return $this->render('shop/new.html.twig', array(
-            'form' => $form->createView()
-        ));
          if ($form->isSubmitted() && $form->isValid()) {
+
             $booking = $form->getData();          
             $this->get('session')->set('Booking', $booking);
-            $totalPrice = 0;
-            foreach ($booking->getTickets() as $ticket) {
-                $totalPrice += $ticket->getAgeType();
-            }
-           
+
+            //appel service de paiement
+            $outil = $this->get('service_container')->get('OC\ShopBundle\Services\OutilPayment');
+            $totalPrice = $outil->OutilPayment();
+
+
             $this->get('session')->set('TotalPrice', $totalPrice);
             $this->get('session')
             ->getFlashBag()
             ->add('notice', 'La réservation a bien été effectuée!');
              return $this->redirectToRoute('oc_shop_payment');
         }
+        return $this->render('shop/new.html.twig', array(
+            'form' => $form->createView()
+        ));
     }
 
 

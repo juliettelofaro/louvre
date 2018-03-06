@@ -50,9 +50,9 @@ class Ticket
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="datedenaissance", type="datetime")
+     * @ORM\Column(name="datedenaissance", type="date")
      * @Assert\NotBlank()
-     * @Assert\Type("\DateTime")
+     * @Assert\Date()
      * @Assert\LessThan(
      *     "today",
      *     message = "merci de vérifier la date de naissance"
@@ -228,15 +228,6 @@ class Ticket
 
 
 
-
-
-
-
-
-
-
-
-
     /**
      * Set bookingId
      *
@@ -259,35 +250,6 @@ class Ticket
     public function getBookingId()
     {
         return $this->bookingId;
-    }
-
-
-      public function getAgeType()
-      {
-      $date = $this->getDatedenaissance();
-      $now = new \DateTime();
-
-      $interval = $now->diff($date);
-      
-
-      $age = $interval->y;
-      if ($this->reduced == true) {
-          return "10"; #Tarif enfant
-      }
-      elseif ($age >= 12 && $age < 60) {
-          return "16"; #Tarif normal
-      }
-       elseif ($age >= 60) {
-           return "12"; #Tarif senior
-      }
-      elseif ($age >= 0 && $age < 4) {
-          return "0"; #Tarif bébé
-      } 
-      elseif ($age >= 4 && $age < 12)
-      {
-         return "8"; #Tarif réduit
-      }
-      else{ return "Date invalide"; }
     }
 
 
