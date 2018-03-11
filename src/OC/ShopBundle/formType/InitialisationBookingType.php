@@ -34,6 +34,7 @@ class InitialisationBookingType extends AbstractType
                 'Demi-journée' => false)))
                 ->add('nbTickets',TextType::class, array('label' => 'Nombre de ticket (10 max.) : '))
                 ->add('email', EmailType::class, array ('label' => 'Adresse e-mail :'));
+        $builder->add('tickets', CollectionType::class, array('entry_type' => TicketType::class));
     }
     
     public function configureOptions(OptionsResolver $resolver)

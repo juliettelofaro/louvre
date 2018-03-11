@@ -26,14 +26,16 @@ services:
     OC\ShopBundle\Validator\NoHolidayValidator:
         arguments:  ["@doctrine.orm.entity_manager"]
 
+   # OC\ShopBundle\Services\EnvoiMail:
+    #    arguments:  ["@mailer"]
 
 
-    OC\ShopBundle\Services\OutilPayment:
-        arguments:
-                    - '%age_max_gratuit%'
-                    - '%age_max_enfant%'
-                    - '%tarif_enfant%'
-                    - '%age_min_senior%'
-                    - '%tarif_senior%'
-                    - '%tarif_normal%'
-                    - '%tarif_reduit%'
+   # OC\ShopBundle\Services\OutilPayment:
+    #    arguments:
+     #               - '%age_max_gratuit%'
+      #              - '%age_max_enfant%'
+       #             - '%tarif_enfant%'
+        #            - '%age_min_senior%'
+         #           - '%tarif_senior%'
+          #          - '%tarif_normal%'
+           #         - '%tarif_reduit%'

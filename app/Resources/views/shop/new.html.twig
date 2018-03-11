@@ -36,6 +36,13 @@ Les prix sont déterminés en fonction de l'âge fourni.</br>
 
  {{ form_start(form) }}
  {{ form_row(form) }}
+ {%  for ticket in form.tickets %}
+  {{ form_row(ticket.prenom) }}
+ {{ form_row(ticket.nom) }}
+  {{ form_row(ticket.datedenaissance) }}
+   {{ form_row(ticket.reduit) }}
+    {{ form_row(ticket.pays) }}
+    {% endfor %}
  <input type="submit" value="Valider" >
  {{ form_end(form) }}
 </div>

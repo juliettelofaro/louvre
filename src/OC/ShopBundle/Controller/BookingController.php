@@ -13,6 +13,7 @@ use OC\ShopBundle\formType\InitialisationBookingType;
 use OC\ShopBundle\formType\AddBookingTicketsType;
 use OC\ShopBundle\formType\TicketType;
 use OC\ShopBundle\Services\OutilPayment;
+use Symfony\Component\Form\FormView;
 
 class BookingController extends Controller
 {
@@ -45,12 +46,14 @@ class BookingController extends Controller
         for ($i = 1; $i <= $amount; $i ++)
         {
             $ticket = new Ticket();
+            $form = $this->createForm(TicketType::class, $ticket);
+            $form->handleRequest($request);
             $booking->getTickets()->add($ticket);
             //$booking->addTicket()->add($ticket);
-
+            return $this->render('shop/new.html.twig', array(
+                'form' => $form->createView()
+            ));
         }
-        $form = $this->createForm(TicketType::class, $ticket);
-        $form->handleRequest($request);
          if ($form->isSubmitted() && $form->isValid()) {
 
             $booking = $form->getData();          
@@ -67,9 +70,7 @@ class BookingController extends Controller
             ->add('notice', 'La réservation a bien été effectuée!');
              return $this->redirectToRoute('oc_shop_payment');
         }
-        return $this->render('shop/new.html.twig', array(
-            'form' => $form->createView()
-        ));
+
     }
 
 
@@ -89,9 +90,9 @@ class BookingController extends Controller
 
 
 
-    public function confirmationAction(Request $request)
-    {       
-        /*$session = $request->getSession();
+/*    public function confirmationAction(Request $request)
+    {
+        $session = $request->getSession();
         $booking = $session->get('Booking');
         $booking->setDate(new \DateTime($session->get('date')));
 
@@ -100,6 +101,6 @@ class BookingController extends Controller
         $em->persist($booking);
         $em->flush();
         $this->container->get('oc_shop.envoimail')->($booking->getEmail(), $booking, $session->get('TotalPrice'));
-        return $this->render('shop/end.html.twig');*/
-    }
+        return $this->render('shop/end.html.twig');
+    }*/
 }

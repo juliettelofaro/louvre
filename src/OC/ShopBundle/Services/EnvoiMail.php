@@ -9,9 +9,16 @@ use Symfony\Component\HttpFoundation\Request;
 
 class EnvoiMail
 {
+    protected $mailer;
 
-public function indexAction($name)
+    public function __construct($mailer)
+    {
+        $this->mailer = $mailer;
+    }
+
+public function checkAction($name, $email)
 {
+
 	   $message = \Swift_Message::newInstance()
         ->setSubject('Billet de réservation')
         ->setFrom('juliette.lofaro@gmail.com')

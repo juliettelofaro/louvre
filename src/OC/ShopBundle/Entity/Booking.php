@@ -281,7 +281,7 @@ class Booking
      *
      * @return Booking
      */
-    public function addTicket(\OC\ShopBundle\Entity\Ticket $ticket)
+    public function addTickets(\OC\ShopBundle\Entity\Ticket $ticket)
     {
         $this->tickets[] = $ticket;
 
@@ -293,7 +293,7 @@ class Booking
      *
      * @param \OC\ShopBundle\Entity\Ticket $ticket
      */
-    public function removeTicket(\OC\ShopBundle\Entity\Ticket $ticket)
+    public function removeTickets(\OC\ShopBundle\Entity\Ticket $ticket)
     {
         $this->tickets->removeElement($ticket);
     }
