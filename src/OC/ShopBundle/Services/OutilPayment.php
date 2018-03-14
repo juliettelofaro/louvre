@@ -1,6 +1,7 @@
 <?php
 
-namespace OC\ShopBundle\Services\OutilPayment;
+namespace OC\ShopBundle\Services;
+use OC\ShopBundle\Entity\Booking;
 use OC\ShopBundle\Entity\Ticket;
 
 
@@ -25,16 +26,22 @@ class OutilPayment
      * @param $tarifNormal
      * @param $tarifReduit
      */
-    public function __construct($ageMaxGratuit, $ageMaxEnfant, $tarifEnfant, $ageMinSenior, $tarifSenior, $tarifNormal, $tarifReduit)
+    public function __construct()
     {
-        $this->ageMaxGratuit = $ageMaxGratuit;
-        $this->ageMaxEnfant = $ageMaxEnfant;
-        $this->tarifEnfant = $tarifEnfant;
-        $this->ageMinSenior = $ageMinSenior;
-        $this->tarifSenior = $tarifSenior;
-        $this->tarifNormal = $tarifNormal;
-        $this->tarifReduit = $tarifReduit;
+        $this->ageMaxGratuit = 4;
+        $this->ageMaxEnfant = 12;
+        $this->tarifEnfant = 8;
+        $this->ageMinSenior = 60;
+        $this->tarifSenior = 12;
+        $this->tarifNormal = 16;
+        $this->tarifReduit = 10;
     }
+
+    public function calculPrixCommande(Booking $booking)
+    {
+        //boucle sur les tickets et mise à jour des prix
+    }
+
     /**
      * retourne le tarif du billet en fonction de la date de naissance
      *
@@ -43,7 +50,7 @@ class OutilPayment
      * @return boolean
      * @internal param $datedenaissance
      */
-    public function calculPrix(Ticket $ticket){
+    private function calculPrix(Ticket $ticket){
         $datedenaissance = $ticket->getDatedenaissance();
         $age = $this->calculAge($datedenaissance);
         if ( $age <= $this->ageMaxGratuit ){

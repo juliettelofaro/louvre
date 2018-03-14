@@ -30,12 +30,17 @@ services:
     #    arguments:  ["@mailer"]
 
 
-   # OC\ShopBundle\Services\OutilPayment:
-    #    arguments:
-     #               - '%age_max_gratuit%'
-      #              - '%age_max_enfant%'
-       #             - '%tarif_enfant%'
-        #            - '%age_min_senior%'
-         #           - '%tarif_senior%'
-          #          - '%tarif_normal%'
-           #         - '%tarif_reduit%'
+    OC\ShopBundle\:
+            resource: '../../src/OC/ShopBundle/*'
+            # you can exclude directories or files
+            # but if a service is unused, it's removed anyway
+            exclude: '../../src/OC/ShopBundle/{Entity,Repository,Tests}'
+
+        # controllers are imported separately to make sure they're public
+        # and have a tag that allows actions to type-hint services
+    OC\ShopBundle\Controller\:
+        resource: '../../src/OC/ShopBundle/Controller'
+        public: true
+        tags: ['controller.service_arguments']
+
+

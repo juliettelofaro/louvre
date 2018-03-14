@@ -73,7 +73,7 @@ class Booking
 
     /**
      * @ORM\OneToMany(targetEntity="Ticket", mappedBy="booking",cascade={"persist"})
-
+     * @Assert\Valid()
      */
     protected $tickets;
 

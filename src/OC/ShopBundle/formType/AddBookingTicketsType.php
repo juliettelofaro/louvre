@@ -22,6 +22,7 @@ class AddBookingTicketsType extends AbstractType
             'allow_delete' => true,
             'label'        => 'Liste des tickets :')
         );
+
     }
    
    public function configureOptions(OptionsResolver $resolver)
