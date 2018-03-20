@@ -16,7 +16,7 @@ class EnvoiMail
         $this->mailer = $mailer;
     }
 
-public function checkAction($name, $email)
+public function checkAction($email)
 {
 
 	   $message = \Swift_Message::newInstance()

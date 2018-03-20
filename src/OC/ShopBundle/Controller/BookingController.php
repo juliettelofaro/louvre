@@ -23,15 +23,15 @@ class BookingController extends Controller
         $booking = new Booking();
         $form = $this->createForm(InitialisationBookingType::class, $booking);
         $form->handleRequest($request);
-         if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $booking = $form->getData();
-             //ici faire le rray collection des tickets vides
+            //ici faire le rray collection des tickets vides
             $this->get('session')->set('Booking', $booking);
             return $this->redirectToRoute('oc_shop_new');
         }
         return $this->render('shop/start.html.twig', array(
-        'form' => $form->createView()
-        ));       
+            'form' => $form->createView()
+        ));
     }
 
     /**
@@ -43,19 +43,21 @@ class BookingController extends Controller
     {
         $session = $request->getSession();
         $booking = $session->get('Booking');
-        for ($i = 1; $i <= $booking->getNbTickets(); $i ++)
-        {
+        for ($i = 1; $i <= $booking->getNbTickets(); $i++) {
             $ticket = new Ticket();
-            $booking->addTickets($ticket);
+            $booking->addTicket($ticket);
         }
+        dump($booking);
         $form = $this->createForm(AddBookingTicketsType::class, $booking);
         $form->handleRequest($request);
-         if ($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             //appel service de paiement
             $outilPayment->calculPrixCommande($booking);
 
             $this->addFlash('notice', 'La réservation a bien été effectuée!');
-             return $this->redirectToRoute('oc_shop_payment');
+            $session->set('Booking', $booking);
+
+            return $this->redirectToRoute('oc_shop_payment');
         }
         return $this->render('shop/new.html.twig', array(
             'form' => $form->createView()
@@ -63,48 +65,69 @@ class BookingController extends Controller
     }
 
 
-     public function recapAction(Request $request, SessionInterface $session)
+    public function recapAction(Request $request, SessionInterface $session)
     {
+
+        $booking = $session->get('Booking');
+        dump($booking);
+        //if méthode post {   vérifier le token stripe
+        if ($request->getMethod() == "POST") {
+
+            try {
+                $token = $request->get('stripeToken');
+
+                \Stripe\Stripe::setApiKey($this->getParameter('stripe_secret_key'));
+                $charge = \Stripe\Charge::create(
+                    array(
+                        "amount" => 2000,
+                        "currency" => "eur",
+                        "source" => "tok_mastercard",
+                        "description" => "Paiement de test"
+                    ));
+                //sauvegarde en bbd
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($booking);
+                $em->flush();
+                dump($em);
+
+                //envoie du mail
+
+
+                //redirection vers success
+                if ($charge->status == "succeeded") {
+                    return $this->redirectToRoute('oc_shop_end');
+                }
+            } catch (\Exception $e) {
+                // retourner sur la meme page en GET
+                $this->addFlash("error", "Votre commande n'a pas été validée, nous vous invitons à refaire votre demande.");
+                $token = $_GET['stripeToken'];
+                return $this->redirectToRoute('oc_shop_payment');
+            }
+
+            return $this->render('shop/paymentForm.html.twig', [
+                'booking' => $booking
+            ]);
+        }
+    }
+
+
+    public function confirmationAction(Request $request, SessionInterface $session)
+    {
+        //recuperer booking depuis session
         $booking = $session->get('Booking');
 
-        //if méthode post {   vérifier le token stripe
-        try{
-
-            \Stripe\Stripe::setApiKey($this->getParameter('stripe_secret_key'));
-            $charge = \Stripe\Charge::create(
-                array(
-                    "amount" => 2000,
-                    "currency" => "eur",
-                    "source" => "tok_mastercard", // obtained with Stripe.js
-                    "description" => "Paiement de test"
-                ));
-            //sauvegarde en bbd
-            //envoie du mail
-
-            //redirection vers success
-
-        }catch(\Exception         $e){
-            // retourner sur la pmeme page en GET
-        }
-
-
-
-
-
-        return $this->render('shop/paymentForm.html.twig',[
-            'booking' => $booking
-        ]);
-    }
-
-
-
-    public function confirmationAction(Request $request)
-    {
-        //recupeer booking depuis session
         // vide la session
-        return $this->render('shop/end.html.twig',[
-            //'booking' => $booking
+        $session = $request->getSession();
+
+        $session->invalidate();
+
+        return $this->render('shop/end.html.twig', [
+                'booking' => $booking
             ]
-            );
+        );
+
+
     }
+
+
 }

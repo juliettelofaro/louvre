@@ -8,7 +8,7 @@
 
 
 {% block intro %}
-<div class="first_title"><center> PROGRAMMER VOTRE VISITE</center></div>
+<div class="first_title"> PROGRAMMER VOTRE VISITE</div>
 {% endblock %}
 
 
@@ -20,7 +20,7 @@
 Les billets sont attribués à l'adresse e-mail renseignée</br>
 Les champs Nom, Prénom, Date de naissance, Pays et E-mail sont obligatoires.</br>
 Les prix sont déterminés en fonction de l'âge fourni.</br>
-<center>___________</center></br>
+___________</br>
 
 <i>*Un tarif réduit à 10 € accordé aux personnes suivantes : étudiants, employés du musée, militaires. Un justificatif vous sera demandé à la présentation du billet.</br>
 </i></br>
@@ -30,19 +30,13 @@ Les prix sont déterminés en fonction de l'âge fourni.</br>
 {% block body %}
 
 
-<div class="tiquets">VOS TIQUETS</div></br> 
+<div class="tiquets">VOS TICKETS</div></br>
 <div class="form_b">
 
 
  {{ form_start(form) }}
  {{ form_row(form) }}
- {%  for ticket in form.tickets %}
-  {{ form_row(ticket.prenom) }}
- {{ form_row(ticket.nom) }}
-  {{ form_row(ticket.datedenaissance) }}
-   {{ form_row(ticket.reduit) }}
-    {{ form_row(ticket.pays) }}
-    {% endfor %}
+
  <input type="submit" value="Valider" >
  {{ form_end(form) }}
 </div>

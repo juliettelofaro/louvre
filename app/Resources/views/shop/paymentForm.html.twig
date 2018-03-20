@@ -21,10 +21,11 @@
         </thead>
         <tbody>
             <tr>
-                <td>{* app.session.get('Booking').getFirstName() *}</td>
-                <td>{* app.session.get('Booking').getLastName() *}</td>
-                <td>{* app.session.get('day') *}</td>
+                <td>{{ booking.prenom }}</td>
+                <td>{{ booking.nom }}</td>
+                <td>{{ booking.datedevisite }}</td>
                 <td>{* app.session.get('Booking').getTickets().count *}</td>
+                <td>{{ booking.tickets.count * }}</td>
             </tr>
         </tbody>
     </table>

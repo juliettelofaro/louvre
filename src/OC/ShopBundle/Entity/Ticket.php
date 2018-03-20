@@ -80,17 +80,30 @@ class Ticket
      * @ORM\Column(name="booking_id", type="integer")
      */
     private $bookingId;
-    
+
+
+    private $prix;
+
+    public function getPrix()
+    {
+        return $this->prix;
+    }
+    public function setPrix($prix)
+    {
+        $this->prix =  $prix;
+    }
+
+
+
+
+
+
+
 
 
     /**
      * Constructeur
      */
-    public function __construct()
-    {
-        $this->reduced      = false;
-        $this->type         = 'NORMAL';
-    }
 
 
 

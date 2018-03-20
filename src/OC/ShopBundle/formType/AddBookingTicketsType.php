@@ -20,6 +20,7 @@ class AddBookingTicketsType extends AbstractType
             'entry_type' => TicketType::class,
             'allow_add'    => true,
             'allow_delete' => true,
+            'by_reference' => false,
             'label'        => 'Liste des tickets :')
         );
 

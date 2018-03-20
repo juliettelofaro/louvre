@@ -37,10 +37,6 @@ class OutilPayment
         $this->tarifReduit = 10;
     }
 
-    public function calculPrixCommande(Booking $booking)
-    {
-        //boucle sur les tickets et mise à jour des prix
-    }
 
     /**
      * retourne le tarif du billet en fonction de la date de naissance
@@ -50,51 +46,68 @@ class OutilPayment
      * @return boolean
      * @internal param $datedenaissance
      */
-    private function calculPrix(Ticket $ticket){
-        $datedenaissance = $ticket->getDatedenaissance();
-        $age = $this->calculAge($datedenaissance);
+    public function calculPrix(Ticket $ticket){
+        $age = $this->calculAge($ticket);
         if ( $age <= $this->ageMaxGratuit ){
-            $prix = 0;
+           $ticket->setPrix(0);
         }
         elseif ( $age <= $this->ageMaxEnfant )
         {
-            $prix = $this->tarifEnfant;
+             $ticket->setPrix($this->tarifEnfant);
         }
         elseif ( $ticket->getReduit())
         {
-            $prix = $this->tarifReduit;
+             $ticket->setPrix($this->tarifReduit);
         }
         elseif( $age >= $this->ageMinSenior)
         {
-            $prix = $this->tarifSenior;
+            $ticket->setPrix($this->tarifSenior);
         }
         else
         {
-            $prix = $this->tarifNormal;
+             $ticket->setPrix($this->tarifNormal);
         }
-
-        return true;
+        //doit rmeplir lattribut $prix de lentité ticket et return cet attribut à calculCommande
     }
+
+
+    public function calculPrixCommande(Booking $booking)
+    {
+        $prixTotal = 0;
+        //boucle sur les tickets et mise à jour des prix
+        foreach($booking->getTickets() as $ticket)
+        {
+            $this->calculPrix($ticket);
+           // $chaqueTicket = $ticket->calculPrix();
+            $prixTotal += $ticket->getPrix();
+            //doit récupérer lattribut prix renvoyé par calculPrix et l'additioner
+        }
+        $booking->setPrixTotal($prixTotal);
+        return $prixTotal;
+    }
+
+
+
+
+
+
     /**
      * retourne l'age en fonction de la date de naissance en datetime
      *
      * @param datetime $datedenaissance
+     * @param Ticket $ticket
+     * @param Booking $booking
      * @return int $age
      */
-    public function calculAge($datedenaissance){
-        $age = idate('Y') - $datedenaissance->format('Y');
+    public function calculAge(Ticket $ticket){
+        //calculer l'âge qu'il aura
+        $datetime2 = $ticket->getDatedenaissance();
+        $datetime3 = $ticket->getBooking()->getDatedevisite(); // date de résa
+        $age = $datetime3->diff($datetime2, true)->y; // le y = nombre d'années ex : 22
         return $age;
     }
-    public function isAdulte(Ticket $ticket)
-    {
-        if($this->calculAge($ticket->getDatedenaissance()) > $this->ageMaxEnfant )
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        }
-    }
+
+
+
 }
 ?>

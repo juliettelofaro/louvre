@@ -72,6 +72,13 @@ class Booking
 
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="prixTotal", type="integer")
+     */
+    private $prixTotal;
+
+    /**
      * @ORM\OneToMany(targetEntity="Ticket", mappedBy="booking",cascade={"persist"})
      * @Assert\Valid()
      */
@@ -281,10 +288,10 @@ class Booking
      *
      * @return Booking
      */
-    public function addTickets(\OC\ShopBundle\Entity\Ticket $ticket)
+    public function addTicket(\OC\ShopBundle\Entity\Ticket $ticket)
     {
         $this->tickets[] = $ticket;
-
+        $ticket->setBooking($this);
         return $this;
     }
 
@@ -293,8 +300,24 @@ class Booking
      *
      * @param \OC\ShopBundle\Entity\Ticket $ticket
      */
-    public function removeTickets(\OC\ShopBundle\Entity\Ticket $ticket)
+    public function removeTicket(\OC\ShopBundle\Entity\Ticket $ticket)
     {
         $this->tickets->removeElement($ticket);
+    }
+
+    /**
+     * @return string
+     */
+    public function getPrixTotal()
+    {
+        return $this->prixTotal;
+    }
+
+    /**
+     * @param string $prixTotal
+     */
+    public function setPrixTotal($prixTotal)
+    {
+        $this->prixTotal = $prixTotal;
     }
 }
