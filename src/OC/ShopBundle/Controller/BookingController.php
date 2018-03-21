@@ -47,7 +47,7 @@ class BookingController extends Controller
             $ticket = new Ticket();
             $booking->addTicket($ticket);
         }
-        dump($booking);
+
         $form = $this->createForm(AddBookingTicketsType::class, $booking);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -55,10 +55,16 @@ class BookingController extends Controller
             $outilPayment->calculPrixCommande($booking);
 
             $this->addFlash('notice', 'La réservation a bien été effectuée!');
+            $session = $this->get('session');
             $session->set('Booking', $booking);
+            $booking = $session->get('Booking');
+            dump($booking);
+            return $this->redirectToRoute('oc_shop_payment', array(
+            'Booking' => $booking,
+            ));
 
-            return $this->redirectToRoute('oc_shop_payment');
         }
+
         return $this->render('shop/new.html.twig', array(
             'form' => $form->createView()
         ));
@@ -71,43 +77,44 @@ class BookingController extends Controller
         $booking = $session->get('Booking');
         dump($booking);
         //if méthode post {   vérifier le token stripe
-        if ($request->getMethod() == "POST") {
+        /* if ($request->getMethod() == "POST") {
 
-            try {
-                $token = $request->get('stripeToken');
+             try {
+                 $token = $request->get('stripeToken');
 
-                \Stripe\Stripe::setApiKey($this->getParameter('stripe_secret_key'));
-                $charge = \Stripe\Charge::create(
-                    array(
-                        "amount" => 2000,
-                        "currency" => "eur",
-                        "source" => "tok_mastercard",
-                        "description" => "Paiement de test"
-                    ));
-                //sauvegarde en bbd
-                $em = $this->getDoctrine()->getManager();
-                $em->persist($booking);
-                $em->flush();
-                dump($em);
+                 \Stripe\Stripe::setApiKey($this->getParameter('stripe_secret_key'));
+                 $charge = \Stripe\Charge::create(
+                     array(
+                         "amount" => 2000,
+                         "currency" => "eur",
+                         "source" => "tok_mastercard",
+                         "description" => "Paiement de test"
+                     ));
+                 //sauvegarde en bbd
+                 $em = $this->getDoctrine()->getManager();
+                 $em->persist($booking);
+                 $em->flush();
+                 dump($em);
 
-                //envoie du mail
+                 //envoie du mail
 
 
-                //redirection vers success
-                if ($charge->status == "succeeded") {
-                    return $this->redirectToRoute('oc_shop_end');
-                }
-            } catch (\Exception $e) {
-                // retourner sur la meme page en GET
-                $this->addFlash("error", "Votre commande n'a pas été validée, nous vous invitons à refaire votre demande.");
-                $token = $_GET['stripeToken'];
-                return $this->redirectToRoute('oc_shop_payment');
-            }
+                 //redirection vers success
+                 if ($charge->status == "succeeded") {
+                     return $this->redirectToRoute('oc_shop_end');
+                 }
+             } catch (\Exception $e) {
+                 // retourner sur la meme page en GET
+                 $this->addFlash("error", "Votre commande n'a pas été validée, nous vous invitons à refaire votre demande.");
+                 $token = $_GET['stripeToken'];
+                 return $this->redirectToRoute('oc_shop_payment');
+             }*/
 
             return $this->render('shop/paymentForm.html.twig', [
-                'booking' => $booking
+                'Booking' => $booking
             ]);
-        }
+
+        //}
     }
 
 

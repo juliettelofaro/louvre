@@ -8,16 +8,17 @@ use OC\ShopBundle\Validator as MyAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 
 
+
+
 /**
  * Booking
- *
  * @ORM\Table(name="booking")
  * @ORM\Entity(repositoryClass="OC\ShopBundle\Repository\BookingRepository")
  * @MyAssert\CanBeFullDay()
  * @MyAssert\NoFull()
  * @MyAssert\NoHoliday()
  */
-class Booking
+class Booking //implements ArrayAccess
 {
 
     const MAX_TICKETS_PER_DAY = 1000;
@@ -319,5 +320,25 @@ class Booking
     public function setPrixTotal($prixTotal)
     {
         $this->prixTotal = $prixTotal;
+    }
+
+    public function offsetSet($offset, $value) {
+        if (is_null($offset)) {
+            $this->container[] = $value;
+        } else {
+            $this->container[$offset] = $value;
+        }
+    }
+
+    public function offsetExists($offset) {
+        return isset($this->container[$offset]);
+    }
+
+    public function offsetUnset($offset) {
+        unset($this->container[$offset]);
+    }
+
+    public function offsetGet($offset) {
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
 }

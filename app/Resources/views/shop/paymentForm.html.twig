@@ -5,8 +5,10 @@
 {% endblock %}
 
 {% block body %}  
-<div class="first_title"><center>Récapitulatif de votre commande</center></div>
-<h3>Votre réservation pour le {* app.session.get('date') *}</h3>
+<div class="first_title">Récapitulatif de votre commande</div>
+
+<h3>Votre réservation pour le {*% set Booking = app.session.get('Booking') %*}
+    {*% set bookingdatedenaissance = Booking['datedenaissance'] %*}</h3>
 
 <hr></hr>
 <div>
@@ -21,11 +23,11 @@
         </thead>
         <tbody>
             <tr>
-                <td>{{ booking.prenom }}</td>
-                <td>{{ booking.nom }}</td>
-                <td>{{ booking.datedevisite }}</td>
+                <td>{* booking.prenom *}</td>
+                <td>{* booking.nom *}</td>
+                <td>{* booking.datedevisite *}</td>
                 <td>{* app.session.get('Booking').getTickets().count *}</td>
-                <td>{{ booking.tickets.count * }}</td>
+                <td>{* booking.tickets.count * *}</td>
             </tr>
         </tbody>
     </table>
