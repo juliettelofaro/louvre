@@ -7,8 +7,8 @@
 {% block body %}  
 <div class="first_title">Récapitulatif de votre commande</div>
 
-<h3>Votre réservation pour le {*% set Booking = app.session.get('Booking') %*}
-    {*% set bookingdatedenaissance = Booking['datedenaissance'] %*}</h3>
+<h3>Votre réservation pour le
+    {{ app.session.get('Booking').getNom() }}</h3>
 
 <hr></hr>
 <div>

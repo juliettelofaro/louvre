@@ -54,11 +54,9 @@ class BookingController extends Controller
             //appel service de paiement
             $outilPayment->calculPrixCommande($booking);
 
+            
+            $this->get('session')->set('Booking', $booking);
             $this->addFlash('notice', 'La réservation a bien été effectuée!');
-            $session = $this->get('session');
-            $session->set('Booking', $booking);
-            $booking = $session->get('Booking');
-            dump($booking);
             return $this->redirectToRoute('oc_shop_payment', array(
             'Booking' => $booking,
             ));
