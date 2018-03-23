@@ -32,8 +32,8 @@
 
         </tbody>
     </table>
-    <div>{{ app.session.get('Booking').getTickets().count }}</div>
-    <div>{{ app.session.get('Booking').getStrDuree() }}</div>
+    <div>Nombre de ticket réservé : {{ app.session.get('Booking').getTickets().count }}.</div>
+    <div>Type de visite : {{ app.session.get('Booking').getStrDuree() }}.</div>
 </div>
 
 

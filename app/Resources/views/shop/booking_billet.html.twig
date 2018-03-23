@@ -13,7 +13,7 @@ th, td {
   <center>
   <div>
     <h3>
-    Bonjour {{booking.getFirstName}}, </br>
+    Bonjour, </br>
     
 	Nous vous remercions de votre commande.
       
@@ -26,9 +26,9 @@ th, td {
 
     <h1>Détails de la commande</h1>
       <table>
-        <tr><td>Date de réservation : {{ booking.getDate()|date("m/d/Y") }}</td></tr>
-        <tr><td>Montant total de la commande : EUR </td><td>{{ total_price }}</td></tr>
-        <!--<tr><td>CODE:</td><td>{{ booking.getTickets[0].getCode }}</td></tr>-->
+        <tr><td>Date de réservation : {{  app.session.get('Booking').getDatedevisite()|date('d m Y') }}</td></tr>
+        <tr><td>Montant total de la commande : EUR </td><td>{{  app.session.get('Booking').prixTotal }}</td></tr>
+        <!--<tr><td>CODE:</td><td>{{ booking.code }}</td></tr>-->
         </table>
         <h1>Tiquets pour :</h1>
         <div id="tickets-info">
@@ -37,13 +37,14 @@ th, td {
             <tr><th>Prénom</th><th>Nom       </th><th>   Commande n°: </th></tr>
           </thead>
           <tbody>
-            {% for ticket in booking.getTickets %}
+          {% for ticket in app.session.get('Booking').getTickets() %}
               <tr>
-                <td>{{ ticket.getFirstName|e }}</td>
-                <td>{{ ticket.getLastName|e }}</td>
-                <td>{{ ticket.getCode|e }}</td>
+                <td>{{ ticket.getPrenom }}</td>
+                <td>{{ ticket.getNom }}</td>
+                  {% endfor %}
+                <td>{{ booking.code }}</td>
               </tr>
-            {% endfor %}
+
         <h2 style="font-weight: bold"></h2> </br> </br>
           </tbody>
        </table>

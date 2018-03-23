@@ -26,7 +26,27 @@ class TicketType extends AbstractType
             'label' => 'Date de naissance :',
         ));
         $builder->add('reduit', CheckboxType::class, array('label' => 'Tarif réduit ', 'required' => false));
-        $builder->add('pays', CountryType::class);
+        $builder->add('pays', CountryType::class, array(
+            'choices' => array(
+                'France' => 'fr',
+                'Angleterre' => 'an',
+                'Allemagne'   => 'all',
+                'Espagne'   => 'es',
+                'Chine'   => 'ch',
+                'Japon'   => 'jp',
+                'Russie'   => 'ru',
+                'Canada'   => 'cd',
+                'Australie'   => 'au',
+                'Etat-Unis'   => 'eu',
+                'Amerique latine'   => 'al',
+                'Italie'   => 'it',
+                'Suisse'   => 'sui',
+                'Pays-bas'   => 'p-b',
+                'Portugal'   => 'pt',
+                'Belgique' => 'bel'
+            ),
+            'preferred_choices' => array('fr', 'an', 'it', 'ch')
+        ));
         
     }
     
