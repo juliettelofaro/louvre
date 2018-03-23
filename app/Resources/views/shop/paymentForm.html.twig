@@ -8,7 +8,7 @@
 <div class="first_title">Récapitulatif de votre commande</div>
 
 <h3>Votre réservation pour le
-    {{ app.session.get('Booking').getNom() }}</h3>
+    {{  app.session.get('Booking').getTickets()[0].getNom() }}</h3>
 
 <hr></hr>
 <div>
@@ -17,20 +17,24 @@
             <tr>
                 <th>Prénom</th>
                 <th>Nom</th>
-                <th>Type de ticket</th>
-                <th>Nombre de ticket</th>
             </tr>
         </thead>
         <tbody>
-            <tr>
-                <td>{* booking.prenom *}</td>
-                <td>{* booking.nom *}</td>
-                <td>{* booking.datedevisite *}</td>
-                <td>{* app.session.get('Booking').getTickets().count *}</td>
-                <td>{* booking.tickets.count * *}</td>
-            </tr>
+
+                {% for ticket in app.session.get('Booking').getTickets() %}
+                <tr>
+                    <td>{{ ticket.getPrenom }}</td>
+                    <td>{{ ticket.getNom }}</td>
+                </tr>
+                {% endfor %}
+
+
+
         </tbody>
     </table>
+    <div>{* app.session.get('Booking').getDatedevisite *}</div>
+    <div>{{ app.session.get('Booking').getTickets().count }}</div>
+    <div>{{ app.session.get('Booking').getStrDuree() }}</div>
 </div>
 
 

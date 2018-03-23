@@ -246,7 +246,15 @@ class Booking //implements ArrayAccess
     {
         return $this->duree;
     }
-
+    public function getStrDuree()
+    {
+        if ($this->getDuree()){
+            return "full day";
+        }
+        else{
+            return "half day";
+        }
+    }
     /**
      * Set code
      *
