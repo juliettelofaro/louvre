@@ -4,6 +4,7 @@ namespace OC\ShopBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -50,7 +51,9 @@ class BookingController extends Controller
 
         $form = $this->createForm(AddBookingTicketsType::class, $booking);
         $form->handleRequest($request);
+        echo 'avant le if de soumission</br>';
         if ($form->isSubmitted() && $form->isValid()) {
+            echo 'dans le if submit';
             //appel service de paiement
             $outilPayment->calculPrixCommande($booking);
 
@@ -75,9 +78,11 @@ class BookingController extends Controller
         $booking = $session->get('Booking');
         dump($booking);
         //if méthode post {   vérifier le token stripe
-        /* if ($request->getMethod() == "POST") {
-
+        echo 'voci request get method : ' . $request->getMethod();
+        if ($request->isMethod('POST')){
+            echo 'on est ds if </br>';
              try {
+                 echo 'on est ds le try </br>';
                  $token = $request->get('stripeToken');
 
                  \Stripe\Stripe::setApiKey($this->getParameter('stripe_secret_key'));
@@ -88,31 +93,40 @@ class BookingController extends Controller
                          "source" => "tok_mastercard",
                          "description" => "Paiement de test"
                      ));
-                 //sauvegarde en bbd
+                 /*sauvegarde en bbd*/
                  $em = $this->getDoctrine()->getManager();
                  $em->persist($booking);
                  $em->flush();
                  dump($em);
 
                  //envoie du mail
-
+                 echo 'on envoie le mail </br>';
 
                  //redirection vers success
-                 if ($charge->status == "succeeded") {
+                 /*if ($charge->status == "succeeded") {
+                     echo 'on est success </br>';
                      return $this->redirectToRoute('oc_shop_end');
-                 }
+                 }*/
+                 return $this->redirectToRoute('oc_shop_end');
              } catch (\Exception $e) {
+                 echo 'on a une exception </br>';
                  // retourner sur la meme page en GET
                  $this->addFlash("error", "Votre commande n'a pas été validée, nous vous invitons à refaire votre demande.");
-                 $token = $_GET['stripeToken'];
+                // $token = $_GET['stripeToken'];
+                 $token = $request->get('stripeToken');
+                 echo 'on a une exception on renvoie vers la meme page </br>';
                  return $this->redirectToRoute('oc_shop_payment');
-             }*/
+             }
 
+
+        }
+        else
+        {
+            echo 'on affiche la page </br>';
             return $this->render('shop/paymentForm.html.twig', [
                 'Booking' => $booking
             ]);
-
-        //}
+        }
     }
 
 

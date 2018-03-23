@@ -8,7 +8,7 @@
 <div class="first_title">Récapitulatif de votre commande</div>
 
 <h3>Votre réservation pour le
-    {{  app.session.get('Booking').getTickets()[0].getNom() }}</h3>
+    {{  app.session.get('Booking').getDatedevisite()|date('d m Y') }}</h3>
 
 <hr></hr>
 <div>
@@ -32,14 +32,13 @@
 
         </tbody>
     </table>
-    <div>{* app.session.get('Booking').getDatedevisite *}</div>
     <div>{{ app.session.get('Booking').getTickets().count }}</div>
     <div>{{ app.session.get('Booking').getStrDuree() }}</div>
 </div>
 
 
 <h3>
-Montant total : <strong>{* app.session.get('TotalPrice')  *} €</strong></br> 
+Montant total : <strong>{{  app.session.get('Booking').prixTotal }} €</strong></br>
 </h3>
 
 Veuillez renseigner vos coordonées bancaires dans le champ ci-dessous pour régler votre commande.</br> </br>
@@ -48,7 +47,7 @@ Veuillez renseigner vos coordonées bancaires dans le champ ci-dessous pour rég
 
 <script src="https://js.stripe.com/v3/"></script>
 
-<form method="get" id="payment-form">
+<form method="post" id="payment-form">
   <div class="form-row">
     <label for="card-element">
       Credit or debit card

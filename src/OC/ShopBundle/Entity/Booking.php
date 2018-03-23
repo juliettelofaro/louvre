@@ -67,7 +67,7 @@ class Booking //implements ArrayAccess
     /**
      * @var string
      *
-     * @ORM\Column(name="code", type="integer")
+     * @ORM\Column(name="code", type="string")
      */
     private $code;
 
@@ -264,9 +264,9 @@ class Booking //implements ArrayAccess
      */
     public function setCode($code)
     {
-        $this->code = strtolower($code);
+        $this->code = $code;
 
-        return $this;
+
     }
 
     /**
