@@ -103,15 +103,13 @@ echo 'cest booking: '. $booking->getPrixTotal();
                  $em->flush();
                  dump($em);
 
-                 //envoie du mail
-
+                 //mail
                  $mailer = $this->container->get('mailer');
-
                  $envoiMail->checkAction($booking->getEmail());
 
                  return $this->redirectToRoute('oc_shop_end');
 
-             } catch (\Exception $e) {
+               } catch (\Exception $e) {
 
                  // retourner sur la meme page en GET
                  $this->addFlash("error", "Votre commande n'a pas été validée, nous vous invitons à refaire votre demande.");

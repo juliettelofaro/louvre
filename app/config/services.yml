@@ -43,4 +43,5 @@ services:
         public: true
         tags: ['controller.service_arguments']
 
-
+    OC\ShopBundle\Services\EnvoiMail:
+        arguments: ["@mailer","@twig"]
