@@ -7,8 +7,6 @@ namespace OC\ShopBundle\Validator;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
 use Doctrine\ORM\EntityManagerInterface;
-use Doctrine\ORM\EntityManager;
-use OC\ShopBundle\Entity\Ticket;
 use OC\ShopBundle\Entity\Booking;
 
 class NoHolidayValidator extends ConstraintValidator

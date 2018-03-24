@@ -2,7 +2,7 @@
 
 
 namespace OC\ShopBundle\Services;
-use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
+
 
 class EnvoiMail //extends \Twig_Extension
 {

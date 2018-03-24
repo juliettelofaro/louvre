@@ -4,11 +4,10 @@ namespace OC\ShopBundle\formType;
 
 use OC\ShopBundle\Entity\Booking;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use OC\ShopBundle\Entity\Ticket;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use OC\ShopBundle\formType\TicketType;
+
 
 
 

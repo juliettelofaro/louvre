@@ -6,7 +6,6 @@ use Doctrine\ORM\EntityManagerInterface;
 use OC\ShopBundle\Entity\Ticket;
 use Symfony\Component\Validator\Constraint;
 use Symfony\Component\Validator\ConstraintValidator;
-use Doctrine\ORM\EntityManager;
 use OC\ShopBundle\Entity\Booking;
 
 class NoFullValidator extends ConstraintValidator

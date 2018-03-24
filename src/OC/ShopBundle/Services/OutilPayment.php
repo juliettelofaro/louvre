@@ -8,7 +8,7 @@ use OC\ShopBundle\Entity\Ticket;
 
 class OutilPayment
 {
-    //ces valeurs sont stockées dans les paramètres et récupérées via le constructeur
+
     private $ageMaxGratuit;
     private $ageMaxEnfant;
     private $tarifEnfant;
