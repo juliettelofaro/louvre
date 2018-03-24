@@ -15,7 +15,7 @@ class EnvoiMail //extends \Twig_Extension
         $this->twig = $twig;
     }
 
-    public function checkAction($email)
+    public function checkAction($email, $booking)
     {
         $message = \Swift_Message::newInstance()
             ->setSubject('Billet de réservation')
@@ -23,7 +23,8 @@ class EnvoiMail //extends \Twig_Extension
             ->setTo($email)
             ->setCharset('utf-8')
             ->setContentType('text/html')
-            ->setBody($this->twig->render('shop/booking_billet.html.twig'));
+            ->setBody($this->twig->render('shop/booking_billet.html.twig', [
+                'booking' => $booking]));
         $this->mailer->send($message);
     }
 }

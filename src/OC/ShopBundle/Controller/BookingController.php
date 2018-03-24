@@ -90,7 +90,7 @@ class BookingController extends Controller
                 dump($em);
 
                 $mailer = $this->container->get('mailer');
-                $envoiMail->checkAction($booking->getEmail());
+                $envoiMail->checkAction($booking->getEmail(), $booking);
                 return $this->redirectToRoute('oc_shop_end');
 
             } catch (\Exception $e) {

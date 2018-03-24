@@ -64,6 +64,12 @@ text-align: center;
 
 }
 
+div.centeer
+{
+    text-align: center;
+    background-position: center;
+    background-position: center;
+}
 .first_title
 {
 	font-family: "Cedarville Cursive";
