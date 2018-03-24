@@ -1,68 +1,59 @@
-
-
 {% extends "shop/layout.html.twig" %}
 
 {% block title %}
-  Accueil - {{ parent() }}
+    Accueil - {{ parent() }}
 {% endblock %}
 
 {% block intro %}
 
-<div class="first_title"><center>LE MUSÉE DU LOUVRE VOUS ACCUEILLE</center></div>
+    <div class="first_title">
+        LE MUSÉE DU LOUVRE VOUS ACCUEILLE
+    </div>
 
 {% endblock %}
-{% block body %}<div class="intro"><u>Bienvenue !</u> </br>
-Réservation d'un horaire d’accès recommandé pour vous offrir les meilleures conditions de visite.
-Vous pouvez dès à présent réserver un ou plusieurs billet(s) grâce à notre billetterie. Choisissez le jour, le type et le nombre de billets que vous souhaitez.
+{% block body %}
+    <div class="intro"><u>Bienvenue !</u> </br>
+        Réservation d'un horaire d’accès recommandé pour vous offrir les meilleures conditions de visite.
+        Vous pouvez dès à présent réserver un ou plusieurs billet(s) grâce à notre billetterie. Choisissez le jour, le
+        type et le nombre de billets que vous souhaitez.
 
-Vous receverez vos billets à l'adresse e-mail renseignée dans le formulaire ci-dessous.</div>
+        Vous receverez vos billets à l'adresse e-mail renseignée dans le formulaire ci-dessous.
+    </div>
 
-<div class="start" style="">
-<div class="title_start">
-Informations relatives à votre ticket  </div>
-* Les champs date de visite et type de billet sont obligatoires. 
-<center>
- {{ form_start(form) }}
- {{ form_row(form) }}
- <input type="submit" value="Valider" >
- {{ form_end(form) }}
-</center>
-</br>
-</div>
+    <div class="start" style="">
+        <div class="title_start">
+            Informations relatives à votre ticket
+        </div>
+        * Les champs date de visite et type de billet sont obligatoires.
 
+            {{ form_start(form) }}
+            {{ form_row(form) }}
+            <input type="submit" value="Valider">
+            {{ form_end(form) }}
 
-
-
-
-
+        </br>
+    </div>
 
 
+    <div class="horaires">
+        <div class="title_start">
+            Informations pratiques </br> </br>
+        </div>
+        <b>Horaires :</b></br>
+        Ouvert tous les jours de 9h à 18h sauf le mardi et le dimanche.</br> </br>
 
+        <b>Fermetures :</b></br>
+        Les 1er mai, 1er novembre et 25 décembre.</br> </br>
 
+        <b>Type de billets :</b></br>
+        Il est impossible de commander de billet « Journée » une fois 14h00 passées.</br> </br>
 
-  <div class="horaires">
-<div class="title_start">
-Informations pratiques </br> </br>
-</div>
-<b>Horaires :</b></br>
-Ouvert tous les jours de 9h à 18h sauf le mardi et le dimanche.</br> </br>
-
-<b>Fermetures :</b></br>
-Les 1er mai, 1er novembre et 25 décembre.</br> </br>
-
-<b>Type de billets :</b></br>
-Il est impossible de commander de billet « Journée » une fois 14h00 passées.</br> </br>
-
-
-<b>Tarifs:</b></br>
-Normal (à partir de 12 ans): 16 €</br>
-Enfant (4 à 11 ans): 8 €</br>
-Sénior (à partir de 60 ans) : 12 €</br>
-Réduit (1): 10 €</br>
-Gratuit pour les enfants de moins de 4 ans
-</div>
-
-
-
+        <b>Tarifs:</b></br>
+        Normal (à partir de 12 ans): 16 €</br>
+        Enfant (4 à 11 ans): 8 €</br>
+        Sénior (à partir de 60 ans) : 12 €</br>
+        Réduit (1): 10 €</br>
+        Gratuit pour les enfants de moins de 4 ans
+    </div>
 
 {% endblock %}
