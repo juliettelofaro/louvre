@@ -8,35 +8,37 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-
-
-
+/**
+ * Class AddBookingTicketsType
+ * @package OC\ShopBundle\formType
+ */
 class AddBookingTicketsType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('tickets', CollectionType::class, array(
-            'entry_type' => TicketType::class,
-            'allow_add'    => true,
-            'allow_delete' => true,
-            'by_reference' => false,
-            'label'        => 'Liste des tickets :')
+                'entry_type' => TicketType::class,
+                'allow_add' => true,
+                'allow_delete' => true,
+                'by_reference' => false,
+                'label' => 'Liste des tickets :')
         );
 
     }
-   
-   public function configureOptions(OptionsResolver $resolver)
+
+    public function configureOptions(OptionsResolver $resolver)
     {
-         $resolver->setDefaults(array(
-             'data_class' => Booking::class,
-         ));
+        $resolver->setDefaults(array(
+            'data_class' => Booking::class,
+        ));
     }
 
     /**
      * This will remove formTypeName from the form
      * @return null
      */
-    public function getBlockPrefix() {
+    public function getBlockPrefix()
+    {
         return null;
     }
 }

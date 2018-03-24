@@ -11,11 +11,10 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-
 class NoHoliday extends Constraint
 {
     public $messageClosedMuseum = "Impossible de réserver ce jour, le musée étant fermé.";
-    public $messageClosedOrder  = "Impossible de réserver ce jour, les résevations en ligne étant fermées pour les jours fériés et les dimanches";
+    public $messageClosedOrder = "Impossible de réserver ce jour, les résevations en ligne étant fermées pour les jours fériés et les dimanches";
 
     public function getTargets()
     {

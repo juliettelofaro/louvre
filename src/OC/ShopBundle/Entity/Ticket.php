@@ -13,11 +13,11 @@ use Symfony\Component\Validator\Constraints as Assert;
  */
 class Ticket
 {
-    
- /**
- * @ORM\ManyToOne(targetEntity="Booking", inversedBy="tickets", cascade={"persist"})
- * @ORM\JoinColumn(name="booking_id", referencedColumnName="id")
- */
+
+    /**
+     * @ORM\ManyToOne(targetEntity="Booking", inversedBy="tickets", cascade={"persist"})
+     * @ORM\JoinColumn(name="booking_id", referencedColumnName="id")
+     */
     private $booking;
 
     /**
@@ -88,9 +88,10 @@ class Ticket
     {
         return $this->prix;
     }
+
     public function setPrix($prix)
     {
-        $this->prix =  $prix;
+        $this->prix = $prix;
     }
 
 
@@ -104,10 +105,6 @@ class Ticket
     /**
      * Constructeur
      */
-
-
-
-
 
 
     /**
@@ -229,6 +226,7 @@ class Ticket
         $this->pays = $pays;
         return $this;
     }
+
     /**
      * Get pays
      *
@@ -238,7 +236,6 @@ class Ticket
     {
         return $this->pays;
     }
-
 
 
     /**
@@ -264,7 +261,6 @@ class Ticket
     {
         return $this->bookingId;
     }
-
 
 
     /**

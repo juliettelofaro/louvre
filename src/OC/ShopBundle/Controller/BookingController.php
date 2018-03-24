@@ -12,6 +12,10 @@ use OC\ShopBundle\formType\AddBookingTicketsType;
 use OC\ShopBundle\Services\OutilPayment;
 use OC\ShopBundle\Services\EnvoiMail;
 
+/**
+ * Class BookingController
+ * @package OC\ShopBundle\Controller
+ */
 
 class BookingController extends Controller
 {
@@ -52,52 +56,50 @@ class BookingController extends Controller
             $outilPayment->calculPrixCommande($booking);
 
             $this->get('session')->set('Booking', $booking);
-            $this->addFlash('notice', 'La réservation a bien été effectuée!');
+
             return $this->redirectToRoute('oc_shop_payment', array(
-            'Booking' => $booking,
+                'Booking' => $booking,
             ));
         }
         return $this->render('shop/new.html.twig', array(
             'form' => $form->createView()
         ));
+
     }
 
     public function recapAction(Request $request, SessionInterface $session, EnvoiMail $envoiMail)
     {
         $booking = $session->get('Booking');
-        $this->get('session')->set('PrixTotal', $booking->getPrixTotal());
 
-        if ($request->isMethod('POST')){
-             try {
-                 $token = $request->get('stripeToken');
-                 $prixTotal = $booking->getPrixTotal();
-                 \Stripe\Stripe::setApiKey($this->getParameter('stripe_secret_key'));
-                 $charge = \Stripe\Charge::create(
-                     array(
-                         "amount" => $prixTotal*100,
-                         "currency" => "eur",
-                         "source" => "tok_mastercard",
-                         "description" => "Paiement de test"
-                     ));
+        if ($request->isMethod('POST')) {
+            try {
+                $token = $request->get('stripeToken');
+                $prixTotal = $booking->getPrixTotal();
+                \Stripe\Stripe::setApiKey($this->getParameter('stripe_secret_key'));
+                $charge = \Stripe\Charge::create(
+                    array(
+                        "amount" => $prixTotal * 100,
+                        "currency" => "eur",
+                        "source" => "tok_mastercard",
+                        "description" => "Paiement de test"
+                    ));
 
-                 $em = $this->getDoctrine()->getManager();
-                 $em->persist($booking);
-                 $em->flush();
-                 dump($em);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($booking);
+                $em->flush();
+                dump($em);
 
-                 $mailer = $this->container->get('mailer');
-                 $envoiMail->checkAction($booking->getEmail());
-                 return $this->redirectToRoute('oc_shop_end');
+                $mailer = $this->container->get('mailer');
+                $envoiMail->checkAction($booking->getEmail());
+                return $this->redirectToRoute('oc_shop_end');
 
-               } catch (\Exception $e) {
-                 // retourner sur la meme page en GET
-                 $this->addFlash("error", "Votre commande n'a pas été validée, nous vous invitons à refaire votre demande.");
-                 $token = $request->get('stripeToken');
-                 return $this->redirectToRoute('oc_shop_payment');
-             }
-        }
-        else
-        {
+            } catch (\Exception $e) {
+                // retourner sur la meme page en GET
+                $this->addFlash("error", "Votre commande n'a pas été validée, nous vous invitons à refaire votre demande.");
+                $token = $request->get('stripeToken');
+                return $this->redirectToRoute('oc_shop_payment');
+            }
+        } else {
             return $this->render('shop/paymentForm.html.twig', [
                 'Booking' => $booking
             ]);

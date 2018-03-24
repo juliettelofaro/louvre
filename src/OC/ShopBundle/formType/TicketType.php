@@ -15,10 +15,10 @@ class TicketType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        
+
         $builder->add('prenom', TextType::class, array('label' => 'Prénom : '));
         $builder->add('nom', TextType::class, array('label' => 'Nom : '));
-        $builder->add('datedenaissance',DateType::Class, array(
+        $builder->add('datedenaissance', DateType::Class, array(
             'widget' => 'choice',
             'years' => range(1918, 2017),
             'months' => range(date('m'), 12),
@@ -30,26 +30,26 @@ class TicketType extends AbstractType
             'choices' => array(
                 'France' => 'fr',
                 'Angleterre' => 'an',
-                'Allemagne'   => 'all',
-                'Espagne'   => 'es',
-                'Chine'   => 'ch',
-                'Japon'   => 'jp',
-                'Russie'   => 'ru',
-                'Canada'   => 'cd',
-                'Australie'   => 'au',
-                'Etat-Unis'   => 'eu',
-                'Amerique latine'   => 'al',
-                'Italie'   => 'it',
-                'Suisse'   => 'sui',
-                'Pays-bas'   => 'p-b',
-                'Portugal'   => 'pt',
+                'Allemagne' => 'all',
+                'Espagne' => 'es',
+                'Chine' => 'ch',
+                'Japon' => 'jp',
+                'Russie' => 'ru',
+                'Canada' => 'cd',
+                'Australie' => 'au',
+                'Etat-Unis' => 'eu',
+                'Amerique latine' => 'al',
+                'Italie' => 'it',
+                'Suisse' => 'sui',
+                'Pays-bas' => 'p-b',
+                'Portugal' => 'pt',
                 'Belgique' => 'bel'
             ),
             'preferred_choices' => array('fr', 'an', 'it', 'ch')
         ));
-        
+
     }
-    
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(

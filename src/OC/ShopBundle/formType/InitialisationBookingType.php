@@ -12,10 +12,6 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 
 
-
-
- 
-
 class InitialisationBookingType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
@@ -24,16 +20,16 @@ class InitialisationBookingType extends AbstractType
             'widget' => 'single_text',
             'label' => 'Date de la visite : '
         ))
-        ->add('duree', ChoiceType::class, array(
-            'label' => 'Durée : ',
-            'choices'  => array(
-                'Journée' => true,
-                'Demi-journée' => false)))
-                ->add('nbTickets',TextType::class, array('label' => 'Nombre de ticket (10 max.) : '))
-                ->add('email', EmailType::class, array ('label' => 'Adresse e-mail :'));
+            ->add('duree', ChoiceType::class, array(
+                'label' => 'Durée : ',
+                'choices' => array(
+                    'Journée' => true,
+                    'Demi-journée' => false)))
+            ->add('nbTickets', TextType::class, array('label' => 'Nombre de ticket (10 max.) : '))
+            ->add('email', EmailType::class, array('label' => 'Adresse e-mail :'));
 
     }
-    
+
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
@@ -45,7 +41,8 @@ class InitialisationBookingType extends AbstractType
      * This will remove formTypeName from the form
      * @return null
      */
-    public function getBlockPrefix() {
+    public function getBlockPrefix()
+    {
         return null;
     }
 }

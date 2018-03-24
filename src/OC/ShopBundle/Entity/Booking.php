@@ -8,8 +8,6 @@ use OC\ShopBundle\Validator as MyAssert;
 use Doctrine\Common\Collections\ArrayCollection;
 
 
-
-
 /**
  * Booking
  * @ORM\Table(name="booking")
@@ -31,7 +29,6 @@ class Booking //implements ArrayAccess
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-
 
 
     /**
@@ -86,15 +83,12 @@ class Booking //implements ArrayAccess
     protected $tickets;
 
 
-
     /**
-
-    * @Assert\NotBlank()
+     * @Assert\NotBlank()
      * @ASSERT\Range(
      *     min = 1,
      *     max = 10
      * )
-
      */
     private $nbTickets;
 
@@ -102,17 +96,18 @@ class Booking //implements ArrayAccess
     {
         return $this->nbTickets;
     }
+
     public function setNbTickets($nbTickets)
     {
-        $this->nbTickets =  $nbTickets;
+        $this->nbTickets = $nbTickets;
     }
 
- public function __construct()
+    public function __construct()
     {
-    $this->datedevisite = new \DateTime();
+        $this->datedevisite = new \DateTime();
         $str = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
         $str = str_split(str_shuffle($str), 4)[0];
-        $this->code = rand(1000,9999).$str;
+        $this->code = rand(1000, 9999) . $str;
         $this->tickets = new ArrayCollection();
     }
 
@@ -246,15 +241,16 @@ class Booking //implements ArrayAccess
     {
         return $this->duree;
     }
+
     public function getStrDuree()
     {
-        if ($this->getDuree()){
+        if ($this->getDuree()) {
             return "Journée";
-        }
-        else{
+        } else {
             return "Demi-Journée";
         }
     }
+
     /**
      * Set code
      *
@@ -280,7 +276,7 @@ class Booking //implements ArrayAccess
     }
 
 
-        /**
+    /**
      * Get tickets
      *
      * @return \Doctrine\Common\Collections\Collection

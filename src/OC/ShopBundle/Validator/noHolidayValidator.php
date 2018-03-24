@@ -12,10 +12,12 @@ use OC\ShopBundle\Entity\Booking;
 class NoHolidayValidator extends ConstraintValidator
 {
     protected $em;
-    public function __construct(EntityManagerInterface   $em)
+
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
+
     /**
      * @param Booking $booking
      * @param Constraint $constraint
@@ -24,7 +26,6 @@ class NoHolidayValidator extends ConstraintValidator
     {
         $this->dateIsValid($booking->getDatedevisite(), $constraint);
     }
-
 
 
     public function getHolidayDays($orderVisitDate)
@@ -38,11 +39,12 @@ class NoHolidayValidator extends ConstraintValidator
         $ascension = $ascension->format('d-m');
         $pentecote = $easterDate->modify('+11 day');
         $pentecote = $pentecote->format('d-m');
-        return ['01-01',$easterMonday,'08-05',$ascension,$pentecote,'14-07','15-08','11-11'];
+        return ['01-01', $easterMonday, '08-05', $ascension, $pentecote, '14-07', '15-08', '11-11'];
     }
+
     public function getClosedDays()
     {
-        return ['01-05','01-11','25-12'];
+        return ['01-05', '01-11', '25-12'];
     }
 
     public function dateIsValid($orderVisitDate, $constraint)

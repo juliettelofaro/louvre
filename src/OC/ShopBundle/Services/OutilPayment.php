@@ -1,9 +1,9 @@
 <?php
 
 namespace OC\ShopBundle\Services;
+
 use OC\ShopBundle\Entity\Booking;
 use OC\ShopBundle\Entity\Ticket;
-
 
 
 class OutilPayment
@@ -16,6 +16,7 @@ class OutilPayment
     private $tarifSenior;
     private $tarifNormal;
     private $tarifReduit;
+
     /**
      * OutilPayment constructor.
      * @param $ageMaxGratuit
@@ -46,26 +47,19 @@ class OutilPayment
      * @return boolean
      * @internal param $datedenaissance
      */
-    public function calculPrix(Ticket $ticket){
+    public function calculPrix(Ticket $ticket)
+    {
         $age = $this->calculAge($ticket);
-        if ( $age <= $this->ageMaxGratuit ){
-           $ticket->setPrix(0);
-        }
-        elseif ( $age <= $this->ageMaxEnfant )
-        {
-             $ticket->setPrix($this->tarifEnfant);
-        }
-        elseif ( $ticket->getReduit())
-        {
-             $ticket->setPrix($this->tarifReduit);
-        }
-        elseif( $age >= $this->ageMinSenior)
-        {
+        if ($age <= $this->ageMaxGratuit) {
+            $ticket->setPrix(0);
+        } elseif ($age <= $this->ageMaxEnfant) {
+            $ticket->setPrix($this->tarifEnfant);
+        } elseif ($ticket->getReduit()) {
+            $ticket->setPrix($this->tarifReduit);
+        } elseif ($age >= $this->ageMinSenior) {
             $ticket->setPrix($this->tarifSenior);
-        }
-        else
-        {
-             $ticket->setPrix($this->tarifNormal);
+        } else {
+            $ticket->setPrix($this->tarifNormal);
         }
         //doit rmeplir lattribut $prix de lentité ticket et return cet attribut à calculCommande
     }
@@ -75,20 +69,15 @@ class OutilPayment
     {
         $prixTotal = 0;
         //boucle sur les tickets et mise à jour des prix
-        foreach($booking->getTickets() as $ticket)
-        {
+        foreach ($booking->getTickets() as $ticket) {
             $this->calculPrix($ticket);
-           // $chaqueTicket = $ticket->calculPrix();
+            // $chaqueTicket = $ticket->calculPrix();
             $prixTotal += $ticket->getPrix();
             //doit récupérer lattribut prix renvoyé par calculPrix et l'additioner
         }
         $booking->setPrixTotal($prixTotal);
         return $prixTotal;
     }
-
-
-
-
 
 
     /**
@@ -99,7 +88,8 @@ class OutilPayment
      * @param Booking $booking
      * @return int $age
      */
-    public function calculAge(Ticket $ticket){
+    public function calculAge(Ticket $ticket)
+    {
         //calculer l'âge qu'il aura
         $datetime2 = $ticket->getDatedenaissance();
         $datetime3 = $ticket->getBooking()->getDatedevisite(); // date de résa
@@ -108,6 +98,6 @@ class OutilPayment
     }
 
 
-
 }
+
 ?>

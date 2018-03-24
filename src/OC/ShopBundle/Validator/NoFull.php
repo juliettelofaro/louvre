@@ -11,10 +11,9 @@ use Symfony\Component\Validator\Constraint;
 /**
  * @Annotation
  */
-
 class NoFull extends Constraint
 {
-	public $message = 'Vous ne pouvez pas commander de billet car ce jour est complet.';
+    public $message = 'Vous ne pouvez pas commander de billet car ce jour est complet.';
 
     public function getTargets()
     {
