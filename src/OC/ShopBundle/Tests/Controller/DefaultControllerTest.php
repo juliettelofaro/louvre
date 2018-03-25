@@ -4,7 +4,7 @@ namespace OC\ShopBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
-class DefaultControllerTest extends WebTestCase
+class ControllerTest extends WebTestCase
 {
     public function testIndex()
     {
