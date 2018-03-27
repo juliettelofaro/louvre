@@ -37,7 +37,7 @@ class TicketType extends AbstractType
                 'Russie' => 'ru',
                 'Canada' => 'cd',
                 'Australie' => 'au',
-                'Etat-Unis' => 'eu',
+                'Etats-Unis' => 'eu',
                 'Amerique latine' => 'al',
                 'Italie' => 'it',
                 'Suisse' => 'sui',

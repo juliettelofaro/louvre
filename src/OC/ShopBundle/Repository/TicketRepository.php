@@ -12,6 +12,10 @@ use Doctrine\ORM\EntityRepository;
  */
 class TicketRepository extends EntityRepository
 {
+
+    // cette methode count le nombre de billet reservé pour la journée courante .
+    // faut compter le nombre de ticket pour la date de visite qui est dans booking
+
     public function getNbTicketsPerDay()
     {
         $startDay = \DateTime::createFromFormat( "Y-m-d H:i:s", date("Y-m-d 00:00:00") );

@@ -17,13 +17,13 @@ class OutilPaymentTest extends TestCase
         $ticket = new Ticket();
 
         $dateDeNaissance = new DateTime('02/31/2015');
-        echo gettype($dateDeNaissance).'<br>';
+
 
         $ticket->setDatedenaissance($dateDeNaissance);
         $booking->addTicket($ticket);
 
         $dateDeVisite = new DateTime('06/06/2018');
-        echo gettype($dateDeVisite).'<br>';
+
 
         $booking->setDatedevisite($dateDeVisite);
         $ticket->setBooking($booking);

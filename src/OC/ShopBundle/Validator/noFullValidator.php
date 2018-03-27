@@ -10,7 +10,7 @@ use OC\ShopBundle\Entity\Booking;
 
 class NoFullValidator extends ConstraintValidator
 {
-
+//ta methode getNbTicketsPerDay() ne prend pas la date à tester en parametre
 
     protected $em;
 

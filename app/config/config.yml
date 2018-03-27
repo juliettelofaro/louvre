@@ -36,6 +36,8 @@ twig:
         - 'bootstrap_3_layout.html.twig'
     debug: '%kernel.debug%'
     strict_variables: '%kernel.debug%'
+   # globals:
+    #    stripe: '%stripe_public_key%'
 
 # Doctrine Configuration
 doctrine:
