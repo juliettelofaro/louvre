@@ -18,8 +18,10 @@ class BookingControllerTest extends WebTestCase
         $client = static::createClient();
 
         //effectuer une requête -> création du client HTTP (navigateur)
-        $client->request('GET', '/booking');
+        $crawler = $client->request('GET', '/booking');
         $this->assertSame(200, $client->getResponse()->getStatusCode());
+        //Permet de verifier si dans le contenu div (start) on a une class .title_start
+        $this->assertContains('start', $crawler->filter('.title_start')->text());
 
     }
 
@@ -38,18 +40,20 @@ class BookingControllerTest extends WebTestCase
 
     }
 
-   /* public function testRecapIsUp()
+    public function testRecapIsUp()
     {
-        //effectuer une requête -> création du client HTTP (navigateur)
+        $client = static::createClient();
         $this->client->request('GET', '/tickets/payment');
         $this->assertSame(200, $client->getResponse()->getStatusCode());
+
     }
 
     public function testConfirmationIsUp()
     {
         //effectuer une requête -> création du client HTTP (navigateur)
+        $client = static::createClient();
         $this->client->request('GET', '/tickets/end');
         $this->assertSame(200, $client->getResponse()->getStatusCode());
-    }*/
+    }
 
 }
