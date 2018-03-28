@@ -52,7 +52,6 @@ class BookingController extends Controller
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            //appel service de paiement
             $outilPayment->calculPrixCommande($booking);
 
             $this->get('session')->set('Booking', $booking);
@@ -94,7 +93,6 @@ class BookingController extends Controller
                 return $this->redirectToRoute('oc_shop_end');
 
             } catch (\Exception $e) {
-                // retourner sur la meme page en GET
                 $this->addFlash("error", "Votre commande n'a pas été validée, nous vous invitons à refaire votre demande.");
                 $token = $request->get('stripeToken');
                 return $this->redirectToRoute('oc_shop_payment');

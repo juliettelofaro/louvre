@@ -15,14 +15,11 @@
             <center>
                 <div>
                     <h3>
-
-
                         Le musée du Louvre vous remercie de votre commande. </br> </br>
                         Voici votre ticket pour le {{ booking.datedevisite|date("m/d/Y") }}.</br> </br>
 
                         Prix de la réservation : {{ booking.prixTotal }} EUR.</br> </br>
                         Code de réservation : {{ booking.code }}.</br> </br>
-
                     </h3>
 
 
@@ -38,7 +35,10 @@
                 <div id="tickets-info">
                     <table>
                         <thead>
-                        <tr><th>Prénom</th><th>Nom       </th></tr>
+                        <tr>
+                            <th>Prénom</th>
+                            <th>Nom</th>
+                        </tr>
                         </thead>
                         <tbody>
                         {% for ticket in booking.getTickets() %}
@@ -56,11 +56,5 @@
         </center>
         </div>
         <hr>
-        <footer>
-            <center>
-
-
-            </center>
-        </footer>
         </div>
-</head>
+    </head>
