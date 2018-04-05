@@ -68,12 +68,9 @@ class OutilPayment
     public function calculPrixCommande(Booking $booking)
     {
         $prixTotal = 0;
-        //boucle sur les tickets et mise à jour des prix
         foreach ($booking->getTickets() as $ticket) {
             $this->calculPrix($ticket);
-            // $chaqueTicket = $ticket->calculPrix();
             $prixTotal += $ticket->getPrix();
-            //doit récupérer lattribut prix renvoyé par calculPrix et l'additioner
         }
         $booking->setPrixTotal($prixTotal);
         return $prixTotal;
